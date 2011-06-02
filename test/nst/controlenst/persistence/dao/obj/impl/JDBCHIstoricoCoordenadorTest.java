@@ -6,7 +6,6 @@ package nst.controlenst.persistence.dao.obj.impl;
 
 
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import nst.controlenst.model.entity.Coordenador;
@@ -58,7 +57,7 @@ public class JDBCHIstoricoCoordenadorTest {
         Coordenador coordenador = new Coordenador();
         coordenador.setId(1);
         
-        Date dataAtual = new Date(System.currentTimeMillis());
+        
         Timestamp tm = new Timestamp(System.currentTimeMillis());
         
 
