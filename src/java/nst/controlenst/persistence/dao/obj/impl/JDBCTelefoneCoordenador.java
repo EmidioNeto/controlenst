@@ -4,17 +4,31 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
+import com.sun.org.apache.regexp.internal.REUtil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nst.controlenst.model.entity.TelefoneCoordenador;
+import nst.controlenst.persistence.dao.GenericJDBCDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.TelefoneCoordenadorDAO;
 
 /**
  *
  * @author pablosouza
  */
-public class JDBCTelefoneCoordenador implements TelefoneCoordenadorDAO {
+public class JDBCTelefoneCoordenador extends GenericJDBCDAO implements TelefoneCoordenadorDAO {
     
     private static JDBCTelefoneCoordenador instacia = null;
+    
+    private static final String SQL_ADD_CURSO = "INSERT INTO telefones_coordenadores(tel_coord_ddd, tel_coord_telefone, fk_coord_id) VALUES (?, ?, ?)";
+    private static final String SQL_UPD_CURSO = "UPDATE telefones_coordenadores SET tel_coord_ddd = ?, tel_coord_telefone = ?, fk_coord_id = ? WHERE tel_coord_id = ?";
+    private static final String SQL_DEL_CURSO = "DELETE FROM telefones_coordenadores WHERE tel_coord_id = ?";
+    private static final String SQL_SEL_BYID = "SELECT * FROM telefones_coordenadores WHERE tel_coord_id= ?";
+    private static final String SQL_SEL_ALL = "SELECT * FROM telefones_coordenadores";
+    
     
     private JDBCTelefoneCoordenador(){
         
@@ -30,22 +44,69 @@ public class JDBCTelefoneCoordenador implements TelefoneCoordenadorDAO {
 
     @Override
     public void delete(TelefoneCoordenador telefone) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            executarComando(SQL_DEL_CURSO, telefone.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public List getAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<TelefoneCoordenador> telefones = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_ALL);
+            if(rs.next()){
+                telefones = new ArrayList<TelefoneCoordenador>();
+                do{
+                    TelefoneCoordenador telefone = (TelefoneCoordenador) preencherEntidade(rs);
+                    telefones.add(telefone);
+                }while(rs.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return telefones;
     }
 
     @Override
     public TelefoneCoordenador getByPrimaryKey(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TelefoneCoordenador telefone = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BYID, id);
+            if(rs.next()){
+                telefone = (TelefoneCoordenador) preencherEntidade(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return telefone;
     }
 
     @Override
     public void save(TelefoneCoordenador telefone) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(telefone.getId() == null || telefone.getId() == 0){
+            try {
+                executarComando(SQL_ADD_CURSO, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                executarComando(SQL_UPD_CURSO, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId(), telefone.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    protected Object preencherEntidade(ResultSet rs) throws SQLException {
+        TelefoneCoordenador telefone = new TelefoneCoordenador();
+        telefone.setCoordenador(JDBCCoordenador.getInstance().getByPrimaryKey(rs.getInt("fk_coord_id")));
+        telefone.setDdd(rs.getString("tel_coord_ddd"));
+        telefone.setTelefone(rs.getString("tel_coord_telefone"));
+        return telefone;
     }
     
 }
