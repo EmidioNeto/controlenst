@@ -21,8 +21,7 @@ public class CargoBO implements IBusiness {
 
     private CargoDAO cargoDAO = null;
     private Cargo cargo = null;
-
-    //Meu bo nao deve ta lgiado a nada relacionado a controle de fabricas Visto que pode ser de qualquer cargo.
+  
     public CargoBO() {
         try {
             this.cargoDAO = FabricaDAO.getFactoryType().getCargoDAO();
