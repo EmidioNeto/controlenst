@@ -4,8 +4,8 @@
  */
 package nst.controlenst.model.entity;
 
-import java.security.Timestamp;
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -27,6 +27,7 @@ public class HistoricoParticipante {
     public HistoricoParticipante() {
     }
 
+    
     public Cargo getCargo() {
         return cargo;
     }
@@ -164,6 +165,10 @@ public class HistoricoParticipante {
         hash = 41 * hash + (this.projeto != null ? this.projeto.hashCode() : 0);
         return hash;
     }
+
+    
+
+  
     
     
     
