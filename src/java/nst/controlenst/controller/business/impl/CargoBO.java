@@ -9,52 +9,52 @@ import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
-import nst.controlenst.model.entity.Tipo;
-import nst.controlenst.persistence.dao.factory.interfaces.TipoDAO;
+import nst.controlenst.model.entity.Cargo;
+import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
 
 /**
  *
  * @author pablosouza
  */
-public class TipoBO implements IBusiness {
+public class CargoBO implements IBusiness {
 
-    private TipoDAO tipoDAO = null;
-    private Tipo tipo = null;
+    private CargoDAO cargoDAO = null;
+    private Cargo cargo = null;
 
-    //Meu bo nao deve ta lgiado a nada relacionado a controle de fabricas Visto que pode ser de qualquer tipo.
-    public TipoBO() {
+    //Meu bo nao deve ta lgiado a nada relacionado a controle de fabricas Visto que pode ser de qualquer cargo.
+    public CargoBO() {
         try {
-            this.tipoDAO = FabricaDAO.getFactoryType().getTipoDAO();
+            this.cargoDAO = FabricaDAO.getFactoryType().getCargoDAO();
         } catch (Exception ex) {
-            Logger.getLogger(TipoBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CargoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void excluir(Object objeto) throws BusinessExceptions {
-        this.tipo = (Tipo) objeto;
+        this.cargo = (Cargo) objeto;
 
-        if (this.tipo.getId() == null || this.tipo.getId() == 0) {
+        if (this.cargo.getId() == null || this.cargo.getId() == 0) {
             throw new BusinessExceptions("Não foi possível identificar o valor do índice no objeto.");
         }
 
-        this.tipoDAO.delete(tipo);
+        this.cargoDAO.delete(cargo);
     }
 
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
-        return (ArrayList<Object>) this.tipoDAO.getAll();
+        return (ArrayList<Object>) this.cargoDAO.getAll();
     }
 
     @Override
     public void save(Object objeto) throws BusinessExceptions {
-        this.tipo = (Tipo) objeto;
+        this.cargo = (Cargo) objeto;
         
-        if ("".equalsIgnoreCase(this.tipo.getDescricao()) || this.tipo.getDescricao() == null) {
+        if ("".equalsIgnoreCase(this.cargo.getDescricao()) || this.cargo.getDescricao() == null) {
             throw new BusinessExceptions("O campo Descrição não pode ser nulo.");
         }
         
-        this.tipoDAO.save(tipo);
+        this.cargoDAO.save(cargo);
     }
 }

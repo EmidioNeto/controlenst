@@ -4,7 +4,6 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
-import java.sql.ResultSet;
 import java.util.List;
 import nst.controlenst.model.entity.Curso;
 import org.junit.After;

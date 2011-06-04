@@ -48,7 +48,7 @@ public class TipoBOTest {
     public void testAdcionar() {
         System.out.println("adcionar");
         Tipo objeto = new Tipo();
-        objeto.setDescricao("");
+        objeto.setDescricao("Testanso mais uma vez");
         TipoBO instance = new TipoBO();
         try {
             instance.save(objeto);
@@ -57,42 +57,49 @@ public class TipoBOTest {
         }
     }
 
-//    /**
-//     * Test of excluir method, of class TipoBO.
-//     */
-//    @Test
-//    public void testExcluir() {
-//        System.out.println("excluir");
-//        Tipo objeto = new Tipo();
-//        objeto.setId(1);
-//        TipoBO instance = new TipoBO();
-//        instance.excluir(objeto);
-//    }
-//
-//    /**
-//     * Test of alterar method, of class TipoBO.
-//     */
-//    @Test
-//    public void testAlterar() {
-//        System.out.println("alterar");
-//        Object objeto = null;
-//        TipoBO instance = new TipoBO();
-//        instance.alterar(objeto);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of listar method, of class TipoBO.
-//     */
-//    @Test
-//    public void testListar() {
-//        System.out.println("listar");
-//        TipoBO instance = new TipoBO();
-//        ArrayList expResult = null;
-//        ArrayList result = instance.listar();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of excluir method, of class TipoBO.
+     */
+    @Test
+    public void testExcluir() {
+        System.out.println("excluir");
+        Tipo objeto = new Tipo();
+        objeto.setId(1);
+        TipoBO instance = new TipoBO();
+        try {
+            instance.excluir(objeto);
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(TipoBOTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Test of alterar method, of class TipoBO.
+     */
+    @Test
+    public void testAlterar() throws BusinessExceptions {
+        System.out.println("alterar");
+        Tipo objeto = new Tipo();
+        objeto.setDescricao("estando");
+        objeto.setId(6);
+        TipoBO instance = new TipoBO();
+        instance.save(objeto);
+    }
+
+    /**
+     * Test of listar method, of class TipoBO.
+     */
+    @Test
+    public void testListar() {
+        System.out.println("listar");
+        TipoBO instance = new TipoBO();
+        
+        ArrayList result = null;
+        try {
+            result = instance.listar();
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(TipoBOTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertNotNull(result);
+    }
 }
