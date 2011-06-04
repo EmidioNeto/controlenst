@@ -58,7 +58,7 @@ public class JDBCVinculoTest {
     @Test
     public void testGetByPrimaryKey() {
         System.out.println("getByPrimaryKey");
-        Integer id = 1;
+        Integer id = 7;
         JDBCVinculo instance = JDBCVinculo.getInstance();
         Vinculo result = instance.getByPrimaryKey(id);
         assertNotNull(result);
