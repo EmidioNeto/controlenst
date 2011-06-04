@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
+import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.model.entity.Tipo;
 import nst.controlenst.persistence.dao.factory.interfaces.TipoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -21,7 +22,6 @@ public class TipoBO implements IBusiness {
     private TipoDAO tipoDAO = null;
     private Tipo tipo = null;
 
-    
     //Meu bo nao deve ta lgiado a nada relacionado a controle de fabricas Visto que pode ser de qualquer tipo.
     public TipoBO() {
         try {
@@ -32,26 +32,25 @@ public class TipoBO implements IBusiness {
     }
 
     @Override
-    public void excluir(Object objeto) {
+    public void excluir(Object objeto) throws BusinessExceptions {
         this.tipo = (Tipo) objeto;
-        if(this.tipo.getId() == null || this.tipo.getId() == 0){
-            System.out.println("Não foi possível identificar o valor do índice no objeto.");
-        }else{
+        if (this.tipo.getId() == null || this.tipo.getId() == 0) {
+            throw new BusinessExceptions("Não foi possível identificar o valor do índice no objeto.");
+        } else {
             this.tipoDAO.delete(tipo);
         }
     }
 
     @Override
-    public ArrayList<Object> listar() {
+    public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.tipoDAO.getAll();
     }
 
     @Override
-    public void save(Object objeto) {
+    public void save(Object objeto) throws BusinessExceptions {
         this.tipo = (Tipo) objeto;
-        
         if ("".equalsIgnoreCase(this.tipo.getDescricao()) || this.tipo.getDescricao() == null) {
-            System.out.println("O campo Descrição não pode ser nulo.");
+            throw new BusinessExceptions("O campo Descrição não pode ser nulo.");
         } else {
             this.tipoDAO.save(tipo);
         }

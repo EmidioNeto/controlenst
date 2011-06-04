@@ -5,6 +5,9 @@
 package nst.controlenst.controller.business.impl;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.model.entity.Tipo;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,9 +48,13 @@ public class TipoBOTest {
     public void testAdcionar() {
         System.out.println("adcionar");
         Tipo objeto = new Tipo();
-        objeto.setDescricao("Testando mais uma vez");
+        objeto.setDescricao("");
         TipoBO instance = new TipoBO();
-        instance.save(objeto);
+        try {
+            instance.save(objeto);
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(TipoBOTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 //    /**

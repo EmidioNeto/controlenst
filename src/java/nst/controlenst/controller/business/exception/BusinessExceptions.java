@@ -10,6 +10,8 @@ package nst.controlenst.controller.business.exception;
  */
 public class BusinessExceptions extends Exception {
     
-    
+    public BusinessExceptions(String  mensagem){
+        super(mensagem);
+    }
     
 }
