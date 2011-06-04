@@ -8,7 +8,7 @@ package nst.controlenst.persistence.dao.factory.interfaces;
  *
  * @author pablosouza
  */
-public interface  DAOFactory {
+public interface DAOFactory {
     public CargoDAO getCargoDAO();
     public CoordenadorDAO getCoordenadorDAO();
     public CursoDAO getCursoDAO();

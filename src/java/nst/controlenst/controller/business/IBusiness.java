@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * @author pablosouza
  */
 public interface IBusiness {
-    public void adcionar(Object objeto);
+    public void save(Object objeto);
     public void excluir(Object objeto);
-    public void alterar(Object objeto);
     public ArrayList<Object> listar();
 }

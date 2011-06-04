@@ -4,28 +4,26 @@
  */
 package nst.controlenst.persistence.dao.util;
 
+import nst.controlenst.persistence.dao.factory.impl.JDBCFactory;
 import nst.controlenst.persistence.dao.factory.interfaces.DAOFactory;
 
 /**
  *
  * @author pablosouza
  */
-public class ControlaFabricasDAO {
-    
-    private static DAOFactory factory = null;
-    
-    public static DAOFactory getFactoryType() throws Exception{
-        if(factory != null){
+public class FabricaDAO {
+
+    private static DAOFactory factory = new JDBCFactory();
+
+    public static DAOFactory getFactoryType() throws Exception {
+        if (factory != null) {
             return factory;
-        }else{
+        } else {
             throw new Exception("DAOFactory nao foi inicializado.");
         }
     }
-    
-    
-    
-    public static void setFactoryType(DAOFactory factory){
-        
-        ControlaFabricasDAO.factory = factory;
+
+    public static void setFactoryType(DAOFactory factory) {
+        FabricaDAO.factory = factory;
     }
 }

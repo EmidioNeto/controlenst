@@ -6,7 +6,7 @@ import nst.controlenst.persistence.dao.factory.impl.JDBCFactory;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.EmailCoordenadorDAO;
 import nst.controlenst.persistence.dao.obj.impl.JDBCEmailCoordenadores;
-import nst.controlenst.persistence.dao.util.ControlaFabricasDAO;
+import nst.controlenst.persistence.dao.util.FabricaDAO;
 
 /*
  * To change this template, choose Tools | Templates
@@ -20,9 +20,9 @@ import nst.controlenst.persistence.dao.util.ControlaFabricasDAO;
 public class TestarJDBCCoordenador {
     public static void main(String[] args) throws Exception {
         //Primeiro seta o tipo de Persistencia
-        ControlaFabricasDAO.setFactoryType(new JDBCFactory());
+        //FabricaDAO.setFactoryType(new JDBCFactory());
         
-        CoordenadorDAO coordenadorDAO = ControlaFabricasDAO.getFactoryType().getCoordenadorDAO();
+        CoordenadorDAO coordenadorDAO = FabricaDAO.getFactoryType().getCoordenadorDAO();
         
 //        //Adcionar um coordenador
 //        Coordenador coordenador0 = new Coordenador();
