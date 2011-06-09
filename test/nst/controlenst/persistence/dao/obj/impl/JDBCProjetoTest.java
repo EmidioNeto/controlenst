@@ -60,8 +60,8 @@ public class JDBCProjetoTest {
         projeto.setDescricao("Descricao2");
         projeto.setIdentificador("indentific");
         projeto.setNome("Nome2");
-        projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(5));
-        projeto.setTipo(JDBCTipo.getInstance().getByPrimaryKey(1));
+        projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(9));
+        projeto.setTipo(JDBCTipo.getInstance().getByPrimaryKey(17));
         instance.save(projeto);
         
     }

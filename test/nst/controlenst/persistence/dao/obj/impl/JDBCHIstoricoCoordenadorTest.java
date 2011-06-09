@@ -50,18 +50,11 @@ public class JDBCHIstoricoCoordenadorTest {
     public void testSave() {
         System.out.println("save");
         HistoricoCoordenador historico = new HistoricoCoordenador();
-        
         Projeto projeto = new Projeto();
-        projeto.setId(1);
-        
+        projeto.setId(19);
         Coordenador coordenador = new Coordenador();
-        coordenador.setId(1);
-        
-        
+        coordenador.setId(7);
         Timestamp tm = new Timestamp(System.currentTimeMillis());
-        
-
-        
         historico.setCoordenador(coordenador);
         historico.setDataEntrada(tm);
         historico.setDataSaida(null);
@@ -69,53 +62,50 @@ public class JDBCHIstoricoCoordenadorTest {
         historico.setProjeto(projeto);
         JDBCHIstoricoCoordenador instance = JDBCHIstoricoCoordenador.getInstance();
         instance.save(historico);
-        
-        
-        
     }
 
-    /**
-     * Test of delete method, of class JDBCHIstoricoCoordenador.
-     */
-    @Test
-    public void testDelete() {
-        System.out.println("delete");
-        HistoricoCoordenador historico = null;
-        JDBCHIstoricoCoordenador instance = null;
-        instance.delete(historico);
-
-    }
-
-    /**
-     * Test of getAll method, of class JDBCHIstoricoCoordenador.
-     */
-    @Test
-    public void testGetAll() {
-        System.out.println("getAll");
-        JDBCHIstoricoCoordenador instance = null;
-        List expResult = null;
-        List result = instance.getAll();
-        assertEquals(expResult, result);
-
-
-    }
-
-    /**
-     * Test of getByPrimaryKey method, of class JDBCHIstoricoCoordenador.
-     */
-    @Test
-    public void testGetByPrimaryKey() {
-        
-        System.out.println("getByPrimaryKey");
-        Integer id = 4;
-        JDBCHIstoricoCoordenador instance = JDBCHIstoricoCoordenador.getInstance();
-        HistoricoCoordenador result = instance.getByPrimaryKey(id);
-        assertNotNull(result);
-        String dataBanco = new SimpleDateFormat("dd/MM/yyyy").format(result.getDataEntrada());
-        System.out.println(dataBanco);
-        
-
-    }
+//    /**
+//     * Test of delete method, of class JDBCHIstoricoCoordenador.
+//     */
+//    @Test
+//    public void testDelete() {
+//        System.out.println("delete");
+//        HistoricoCoordenador historico = null;
+//        JDBCHIstoricoCoordenador instance = null;
+//        instance.delete(historico);
+//
+//    }
+//
+//    /**
+//     * Test of getAll method, of class JDBCHIstoricoCoordenador.
+//     */
+//    @Test
+//    public void testGetAll() {
+//        System.out.println("getAll");
+//        JDBCHIstoricoCoordenador instance = null;
+//        List expResult = null;
+//        List result = instance.getAll();
+//        assertEquals(expResult, result);
+//
+//
+//    }
+//
+//    /**
+//     * Test of getByPrimaryKey method, of class JDBCHIstoricoCoordenador.
+//     */
+//    @Test
+//    public void testGetByPrimaryKey() {
+//        
+//        System.out.println("getByPrimaryKey");
+//        Integer id = 4;
+//        JDBCHIstoricoCoordenador instance = JDBCHIstoricoCoordenador.getInstance();
+//        HistoricoCoordenador result = instance.getByPrimaryKey(id);
+//        assertNotNull(result);
+//        String dataBanco = new SimpleDateFormat("dd/MM/yyyy").format(result.getDataEntrada());
+//        System.out.println(dataBanco);
+//        
+//
+//    }
 
     
 }

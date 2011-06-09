@@ -45,7 +45,7 @@ public class CoordenadorBOTest {
     public void testSave() throws Exception {
         System.out.println("save");
         Coordenador objeto = new Coordenador();
-        objeto.setNome("Pablo Teste");
+        objeto.setNome("Pablo mais um teste");
         CoordenadorBO instance = new CoordenadorBO();
         instance.save(objeto);
     }
@@ -65,7 +65,16 @@ public class CoordenadorBOTest {
     public void testExcluir() throws Exception {
         System.out.println("excluir");
         Coordenador objeto = new Coordenador();
-        objeto.setId(3);
+        
+        /*
+         * Coordenador que possui registro vinculado
+         */
+        //objeto.setId(7);
+        
+        /*
+         * Coordenador que nao possui registro vinculado.
+         */
+        objeto.setId(1);
         CoordenadorBO instance = new CoordenadorBO();
         instance.excluir(objeto);
     }

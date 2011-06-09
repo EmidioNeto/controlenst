@@ -30,7 +30,7 @@ public class JDBCHIstoricoCoordenador extends GenericJDBCDAO implements Historic
     private static final String SQL_DEL_HIST = "DELETE FROM Historico_Coordenadores WHERE histc_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM Historico_Coordenadores WHERE histc_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM Historico_Coordenadores";
-    private static final String SQL_SEL_HIST_BYCOORD = "SELECT * FROM HISTORICO_COORDENADORES WHERE fk_proj_id = ? ";
+    private static final String SQL_SEL_HIST_BYCOORD = "SELECT * FROM HISTORICO_COORDENADORES WHERE fk_coord_id = ? ";
     
     private JDBCHIstoricoCoordenador(){
         
@@ -103,6 +103,7 @@ public class JDBCHIstoricoCoordenador extends GenericJDBCDAO implements Historic
         }
     }
     
+    @Override
     public List getAllByCoordenador(Coordenador coordenador){
         List<HistoricoCoordenador> historicos = null;
         try {

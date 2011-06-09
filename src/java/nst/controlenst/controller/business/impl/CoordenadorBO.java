@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
+import java.util.List;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
@@ -35,6 +36,7 @@ public class CoordenadorBO implements IBusiness {
 
     @Override
     public void excluir(Object objeto) throws BusinessExceptions {
+
         this.coordenador = (Coordenador) objeto;
 
         /*
@@ -47,17 +49,12 @@ public class CoordenadorBO implements IBusiness {
         /*
          * Nao permite a exclusao de um Coordenador que esteja vinculado a um registro no Historico.
          */
-        if(!this.historicoCoordenadorDAO.getAllByCoordenador(this.coordenador).isEmpty()){
+        
+        if(this.historicoCoordenadorDAO.getAllByCoordenador(this.coordenador) != null){
             throw new BusinessExceptions("Não é permitido a exclusão de um Coordenador vinculado a um registro de Historico de Coordenadores.");
         }
-        
+       
         this.coordenadorDAO.delete(coordenador);
-        
-        
-        
-        //Não permitir a exclusao de um Coordenador que esteja vinculado a um projeto.
-        
-        
     }
 
     @Override
@@ -69,10 +66,13 @@ public class CoordenadorBO implements IBusiness {
     public void save(Object objeto) throws BusinessExceptions {
         this.coordenador = (Coordenador) objeto;
 
+        /*
+         * O campo não pode ser nulo.
+         */
         if ("".equalsIgnoreCase(this.coordenador.getNome()) || this.coordenador.getNome() == null) {
             throw new BusinessExceptions("O campo Nome não pode ser nulo.");
         }
-
+        
         this.coordenadorDAO.save(coordenador);
     }    
 }
