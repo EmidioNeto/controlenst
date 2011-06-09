@@ -5,6 +5,7 @@
 package nst.controlenst.persistence.dao.factory.interfaces;
 
 import java.util.List;
+import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.model.entity.HistoricoCoordenador;
 
 /**
@@ -16,4 +17,5 @@ public interface HistoricoCoordenadorDAO {
     public List getAll();
     public HistoricoCoordenador getByPrimaryKey(Integer id);
     public void save(HistoricoCoordenador historico);
+    public List getAllByCoordenador(Coordenador coordenador);
 }

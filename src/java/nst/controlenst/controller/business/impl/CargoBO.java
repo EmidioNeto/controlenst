@@ -52,8 +52,7 @@ public class CargoBO implements IBusiness {
         
         if ("".equalsIgnoreCase(this.cargo.getDescricao()) || this.cargo.getDescricao() == null) {
             throw new BusinessExceptions("O campo Descrição não pode ser nulo.");
-        }
-        
+        }   
         this.cargoDAO.save(cargo);
     }
 }

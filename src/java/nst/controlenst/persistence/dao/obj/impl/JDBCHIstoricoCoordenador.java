@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.model.entity.HistoricoCoordenador;
 import nst.controlenst.persistence.dao.GenericJDBCDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
@@ -29,7 +30,7 @@ public class JDBCHIstoricoCoordenador extends GenericJDBCDAO implements Historic
     private static final String SQL_DEL_HIST = "DELETE FROM Historico_Coordenadores WHERE histc_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM Historico_Coordenadores WHERE histc_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM Historico_Coordenadores";
-    
+    private static final String SQL_SEL_HIST_BYCOORD = "SELECT * FROM HISTORICO_COORDENADORES WHERE fk_proj_id = ? ";
     
     private JDBCHIstoricoCoordenador(){
         
@@ -100,6 +101,23 @@ public class JDBCHIstoricoCoordenador extends GenericJDBCDAO implements Historic
                 Logger.getLogger(JDBCHIstoricoCoordenador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public List getAllByCoordenador(Coordenador coordenador){
+        List<HistoricoCoordenador> historicos = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_HIST_BYCOORD, coordenador.getId());
+            if(rs.next()){
+                historicos = new ArrayList<HistoricoCoordenador>();
+                do{
+                    HistoricoCoordenador historico = (HistoricoCoordenador) preencherEntidade(rs);
+                    historicos.add(historico);
+                }while(rs.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCHIstoricoCoordenador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return historicos;
     }
 
     @Override
