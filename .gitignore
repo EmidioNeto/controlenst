@@ -3,3 +3,4 @@ dist/
 build/
 /.svn/
 /nbproject/private/
+/.build/
