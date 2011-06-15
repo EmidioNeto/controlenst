@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
-import java.util.List;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
