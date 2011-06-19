@@ -49,6 +49,7 @@ public class JDBCCargo extends GenericJDBCDAO implements CargoDAO {
 
     @Override
     public List getAll() {
+
         List<Cargo> cargos = new ArrayList<Cargo>();
         try {
             ResultSet rs = executarQuery(SQL_SEL_ALL);
