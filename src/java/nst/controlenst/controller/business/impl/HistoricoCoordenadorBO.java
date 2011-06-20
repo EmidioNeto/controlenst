@@ -44,12 +44,12 @@ public class HistoricoCoordenadorBO implements IBusiness{
         
         //coordenador nao pode esta vazio
         if(this.historicoCoordenador.getCoordenador() == null){
-            throw new BusinessExceptions("Não é possível criar um registro de Historico sem um Coordenador vinculado.");
+            throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem um Coordenador vinculado.");
         }
         //projeto nao pode estar vazio
         //coordenador nao pode esta vazio
         if(this.historicoCoordenador.getProjeto() == null){
-            throw new BusinessExceptions("Não é possível criar um registro de Historico sem um Projeto vinculado.");
+            throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem um Projeto vinculado.");
         }
         
         this.historicoCoordenadorDAO.save(historicoCoordenador);
