@@ -14,13 +14,12 @@ import nst.controlenst.persistence.dao.factory.interfaces.MotivoSaidaDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
 
 //Teste para checkout
-
 /**
  *
  * @author pablosouza
  */
-public class MotivoSaidaBO implements IBusiness{
-    
+public class MotivoSaidaBO implements IBusiness {
+
     private MotivoSaida motivoSaida = null;
     private MotivoSaidaDAO motivoSaidaDao = null;
 
@@ -31,24 +30,29 @@ public class MotivoSaidaBO implements IBusiness{
             Logger.getLogger(MotivoSaidaBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void save(Object objeto) throws BusinessExceptions {
         this.motivoSaida = (MotivoSaida) objeto;
-        
-        if("".equalsIgnoreCase(this.motivoSaida.getDescricao()) || this.motivoSaida.getDescricao() == null ){
-            
+
+        if ("".equalsIgnoreCase(this.motivoSaida.getDescricao()) || this.motivoSaida.getDescricao() == null) {
+            throw new BusinessExceptions("O campo Descrição não pode ser Nulo ou Vazio");
         }
+        
+        this.motivoSaidaDao.save(motivoSaida);
     }
 
     @Override
     public void excluir(Object objeto) throws BusinessExceptions {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.motivoSaida = (MotivoSaida) objeto;
+        if(this.motivoSaida.getId() == null || this.motivoSaida.getId() == 0){
+            throw new BusinessExceptions("Não foi possível identificar o valor do índice no objeto.");
+        }
+        this.motivoSaidaDao.delete(motivoSaida);
     }
 
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.motivoSaidaDao.getAll();
     }
-    
 }
