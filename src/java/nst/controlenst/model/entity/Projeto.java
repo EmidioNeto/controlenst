@@ -26,19 +26,6 @@ public class Projeto {
     public Projeto() {
     }
 
-    public Projeto(Integer id, String nome, String identificador, Timestamp dataCadastro, Timestamp dataInicio, Timestamp dataEncerramentoPrevisto, Timestamp dataEncerramento, String descricao, Situacao situacao, Tipo tipo) {
-        this.id = id;
-        this.nome = nome;
-        this.identificador = identificador;
-        this.dataCadastro = dataCadastro;
-        this.dataInicio = dataInicio;
-        this.dataEncerramentoPrevisto = dataEncerramentoPrevisto;
-        this.dataEncerramento = dataEncerramento;
-        this.descricao = descricao;
-        this.situacao = situacao;
-        this.tipo = tipo;
-    }
-
     public Timestamp getDataCadastro() {
         return dataCadastro;
     }
@@ -128,34 +115,10 @@ public class Projeto {
             return false;
         }
         final Projeto other = (Projeto) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
-            return false;
-        }
         if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
             return false;
         }
         if ((this.identificador == null) ? (other.identificador != null) : !this.identificador.equals(other.identificador)) {
-            return false;
-        }
-        if (this.dataCadastro != other.dataCadastro && (this.dataCadastro == null || !this.dataCadastro.equals(other.dataCadastro))) {
-            return false;
-        }
-        if (this.dataInicio != other.dataInicio && (this.dataInicio == null || !this.dataInicio.equals(other.dataInicio))) {
-            return false;
-        }
-        if (this.dataEncerramentoPrevisto != other.dataEncerramentoPrevisto && (this.dataEncerramentoPrevisto == null || !this.dataEncerramentoPrevisto.equals(other.dataEncerramentoPrevisto))) {
-            return false;
-        }
-        if (this.dataEncerramento != other.dataEncerramento && (this.dataEncerramento == null || !this.dataEncerramento.equals(other.dataEncerramento))) {
-            return false;
-        }
-        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
-            return false;
-        }
-        if (this.situacao != other.situacao && (this.situacao == null || !this.situacao.equals(other.situacao))) {
-            return false;
-        }
-        if (this.tipo != other.tipo && (this.tipo == null || !this.tipo.equals(other.tipo))) {
             return false;
         }
         return true;
@@ -163,18 +126,11 @@ public class Projeto {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 17 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 17 * hash + (this.identificador != null ? this.identificador.hashCode() : 0);
-        hash = 17 * hash + (this.dataCadastro != null ? this.dataCadastro.hashCode() : 0);
-        hash = 17 * hash + (this.dataInicio != null ? this.dataInicio.hashCode() : 0);
-        hash = 17 * hash + (this.dataEncerramentoPrevisto != null ? this.dataEncerramentoPrevisto.hashCode() : 0);
-        hash = 17 * hash + (this.dataEncerramento != null ? this.dataEncerramento.hashCode() : 0);
-        hash = 17 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
-        hash = 17 * hash + (this.situacao != null ? this.situacao.hashCode() : 0);
-        hash = 17 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
+        int hash = 3;
+        hash = 79 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 79 * hash + (this.identificador != null ? this.identificador.hashCode() : 0);
         return hash;
     }
-    
+
+   
 }

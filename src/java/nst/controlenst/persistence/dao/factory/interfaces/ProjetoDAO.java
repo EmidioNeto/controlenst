@@ -16,4 +16,5 @@ public interface ProjetoDAO {
     public List getAll();
     public Projeto getByPrimaryKey(Integer id);
     public void save(Projeto projeto);
+    public boolean isExiste(Projeto projeto);
 }

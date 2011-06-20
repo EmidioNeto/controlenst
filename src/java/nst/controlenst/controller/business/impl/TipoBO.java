@@ -22,7 +22,6 @@ public class TipoBO implements IBusiness {
     private TipoDAO tipoDAO = null;
     private Tipo tipo = null;
 
-    //Meu bo nao deve ta lgiado a nada relacionado a controle de fabricas Visto que pode ser de qualquer tipo.
     public TipoBO() {
         try {
             this.tipoDAO = FabricaDAO.getFactoryType().getTipoDAO();

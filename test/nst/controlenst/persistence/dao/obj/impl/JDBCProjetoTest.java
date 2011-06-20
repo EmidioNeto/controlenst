@@ -4,6 +4,7 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
 import nst.controlenst.model.entity.Projeto;
@@ -57,10 +58,10 @@ public class JDBCProjetoTest {
         projeto.setDataEncerramento(tm);
         projeto.setDataEncerramentoPrevisto(tm);
         projeto.setDataInicio(tm);
-        projeto.setDescricao("Descricao2");
-        projeto.setIdentificador("indentific");
-        projeto.setNome("Nome2");
-        projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(9));
+        projeto.setDescricao("Teste de controle NST");
+        projeto.setIdentificador("controle");
+        projeto.setNome("ControleNst");
+        projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(11));
         projeto.setTipo(JDBCTipo.getInstance().getByPrimaryKey(17));
         instance.save(projeto);
         
@@ -119,10 +120,32 @@ public class JDBCProjetoTest {
     @Test
     public void testGetByPrimaryKey() {
         System.out.println("getByPrimaryKey");
-        Integer id = 10;
+        Integer id = 26;
         Projeto result = instance.getByPrimaryKey(id);
+        System.out.println("Data de Cadastro:"+result.getDataCadastro());
         assertNotNull(result);
     }
 
-    
+
+    /**
+     * Test of isExiste method, of class JDBCProjeto.
+     */
+    @Test
+    public void testIsExiste() {
+        System.out.println("isExiste");
+        Projeto projeto = new Projeto();
+        Timestamp tm = new Timestamp(System.currentTimeMillis());
+        projeto.setDataCadastro(tm);
+        projeto.setDataEncerramento(tm);
+        projeto.setDataEncerramentoPrevisto(tm);
+        projeto.setDataInicio(tm);
+        projeto.setDescricao("Teste de controle NST");
+        projeto.setIdentificador("controle");
+        projeto.setNome("ControleNst");
+        projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(11));
+        projeto.setTipo(JDBCTipo.getInstance().getByPrimaryKey(17));
+        boolean expResult = true;
+        boolean result = instance.isExiste(projeto);
+        assertEquals(expResult, result);
+    }
 }

@@ -43,6 +43,7 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
     private static final String SQL_DEL_PROJETOS = "DELETE FROM projetos WHERE proj_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM projetos WHERE proj_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM projetos";
+    private static final String SQL_SEL_BY_NOME_IDENTIFICADOR = "SELECT * FROM projetos WHERE proj_identificador = ? OR proj_nome = ?";
 
     private JDBCProjeto() {
     }
@@ -101,35 +102,48 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
         if (projeto.getId() == null || projeto.getId() == 0) {
             try {
                 executarComando(SQL_ADD_PROJETOS, projeto.getIdentificador(),
-                           projeto.getDataCadastro(),
-                           projeto.getDataInicio(),
-                           projeto.getDataEncerramentoPrevisto(),
-                           projeto.getDataEncerramento(),
-                           projeto.getDescricao(),
-                           projeto.getSituacao().getId(),
-                           projeto.getTipo().getId(),
-                           projeto.getNome());
+                        projeto.getDataCadastro(),
+                        projeto.getDataInicio(),
+                        projeto.getDataEncerramentoPrevisto(),
+                        projeto.getDataEncerramento(),
+                        projeto.getDescricao(),
+                        projeto.getSituacao().getId(),
+                        projeto.getTipo().getId(),
+                        projeto.getNome());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-        }else{
+
+        } else {
             try {
-                executarComando(SQL_UPD_PROJETOS, 
-                                projeto.getIdentificador(),
-                                projeto.getDataCadastro(),
-                                projeto.getDataInicio(),
-                                projeto.getDataEncerramentoPrevisto(),
-                                projeto.getDataEncerramento(),
-                                projeto.getDescricao(),
-                                projeto.getSituacao().getId(),
-                                projeto.getTipo().getId(),
-                                projeto.getNome(),
-                                projeto.getId());
+                executarComando(SQL_UPD_PROJETOS,
+                        projeto.getIdentificador(),
+                        projeto.getDataCadastro(),
+                        projeto.getDataInicio(),
+                        projeto.getDataEncerramentoPrevisto(),
+                        projeto.getDataEncerramento(),
+                        projeto.getDescricao(),
+                        projeto.getSituacao().getId(),
+                        projeto.getTipo().getId(),
+                        projeto.getNome(),
+                        projeto.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public boolean isExiste(Projeto projeto) {
+        try {
+
+            ResultSet rs = executarQuery(SQL_SEL_BY_NOME_IDENTIFICADOR, projeto.getIdentificador(), projeto.getNome());
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
