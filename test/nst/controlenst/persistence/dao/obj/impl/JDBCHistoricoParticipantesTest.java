@@ -51,16 +51,16 @@ public class JDBCHistoricoParticipantesTest {
     public void testSave() {
         System.out.println("save");
         HistoricoParticipante historico = new HistoricoParticipante();
-        historico.setCargo(JDBCCargo.getInstance().getByPrimaryKey(1));
-        historico.setCurso(JDBCCurso.getInstance().getByPrimaryKey(3));
+        historico.setCargo(JDBCCargo.getInstance().getByPrimaryKey(10));
+        historico.setCurso(JDBCCurso.getInstance().getByPrimaryKey(5));
         Timestamp tm = new Timestamp(System.currentTimeMillis());
         historico.setEntrada(tm);
-        historico.setMotivoSaida(JDBCMotivoSaida.getInstance().getByPrimaryKey(3));
+        historico.setMotivoSaida(JDBCMotivoSaida.getInstance().getByPrimaryKey(9));
         historico.setParticipante(JDBCParticipante.getInstance().getByPrimaryKey(4));
-        historico.setProjeto(JDBCProjeto.getInstance().getByPrimaryKey(10));
+        historico.setProjeto(JDBCProjeto.getInstance().getByPrimaryKey(21));
         historico.setSaida(tm);
-        historico.setTipoIngresso(JDBCTipoIngresso.getInstance().getByPrimaryKey(5));
-        historico.setVinculo(JDBCVinculo.getInstance().getByPrimaryKey(7));
+        historico.setTipoIngresso(JDBCTipoIngresso.getInstance().getByPrimaryKey(9));
+        historico.setVinculo(JDBCVinculo.getInstance().getByPrimaryKey(15));
        
         instance.save(historico);
        }
@@ -72,16 +72,17 @@ public class JDBCHistoricoParticipantesTest {
     public void testUpdate() {
         System.out.println("update");
         HistoricoParticipante historico = new HistoricoParticipante();
-        historico.setCargo(JDBCCargo.getInstance().getByPrimaryKey(1));
-        historico.setCurso(JDBCCurso.getInstance().getByPrimaryKey(3));
+        historico.setId(9);
+        historico.setCargo(JDBCCargo.getInstance().getByPrimaryKey(10));
+        historico.setCurso(JDBCCurso.getInstance().getByPrimaryKey(5));
         Timestamp tm = new Timestamp(System.currentTimeMillis());
         historico.setEntrada(tm);
-        historico.setMotivoSaida(JDBCMotivoSaida.getInstance().getByPrimaryKey(3));
+        historico.setMotivoSaida(JDBCMotivoSaida.getInstance().getByPrimaryKey(9));
         historico.setParticipante(JDBCParticipante.getInstance().getByPrimaryKey(4));
-        historico.setProjeto(JDBCProjeto.getInstance().getByPrimaryKey(10));
+        historico.setProjeto(JDBCProjeto.getInstance().getByPrimaryKey(21));
         historico.setSaida(tm);
-        historico.setTipoIngresso(JDBCTipoIngresso.getInstance().getByPrimaryKey(5));
-        historico.setVinculo(JDBCVinculo.getInstance().getByPrimaryKey(7));
+        historico.setTipoIngresso(JDBCTipoIngresso.getInstance().getByPrimaryKey(9));
+        historico.setVinculo(JDBCVinculo.getInstance().getByPrimaryKey(15));
         instance.save(historico);
     }
 

@@ -24,18 +24,24 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
     private static final String SQL_ADD_HIST = "INSERT INTO"
             + " historico_participantes("
             + "histp_entrada, "
-            + "histp_saida, "
-            + "fk_mot_id, "
             + "fk_carg_id, "
             + "fk_cur_id,"
             + "fk_vinc_id,"
             + "fk_part_id,"
             + "fk_ing_id,"
-            + "fk_proj_id) VALUES (?,?,?,?,?,?,?,?,?)";
+            + "fk_proj_id) VALUES (?,?,?,?,?,?,?)";
+    /*
+     * Constante utilizada considerando somente a saida do participante.
+     */
+    private static final String SQL_UPD_REG_HISTO = "UPDATE historico_participantes SET "
+            + " histp_saida = ?,"
+            + " fk_mot_id = ?"
+            + " WHERE histp_id = ?";
+    /*
+     * Constante utilizada para d atualizar o registro sem considerar a a saida(motivo e data da saida)
+     */
     private static final String SQL_UPD_HIST = "UPDATE historico_participantes SET "
             + "histp_entrada = ?,"
-            + " histp_saida = ?,"
-            + " fk_mot_id = ?,"
             + " fk_carg_id = ?,"
             + " fk_cur_id = ?,"
             + "fk_vinc_id = ?,"
@@ -100,12 +106,10 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
 
     @Override
     public void save(HistoricoParticipante historico) {
-        if (historico.getId() == null || historico.getId() == 0 ) {
+        if (historico.getId() == null || historico.getId() == 0) {
             try {
                 executarComando(SQL_ADD_HIST,
                         historico.getEntrada(),
-                        historico.getSaida(),
-                        historico.getMotivoSaida().getId(),
                         historico.getCargo().getId(),
                         historico.getCurso().getId(),
                         historico.getVinculo().getId(),
@@ -117,16 +121,21 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
             }
         } else {
             try {
-                executarComando(SQL_UPD_HIST, historico.getEntrada(),
-                        historico.getSaida(),
-                        historico.getMotivoSaida().getId(),
-                        historico.getCargo().getId(),
-                        historico.getCurso().getId(),
-                        historico.getVinculo().getId(),
-                        historico.getParticipante().getId(),
-                        historico.getTipoIngresso().getId(),
-                        historico.getProjeto().getId(),
-                        historico.getId());
+                if (historico.getMotivoSaida() != null || historico.getSaida() != null) {
+                    executarComando(SQL_UPD_REG_HISTO,
+                            historico.getSaida(),
+                            historico.getMotivoSaida().getId(),
+                            historico.getId());
+                } else {
+                    executarComando(SQL_UPD_HIST, historico.getEntrada(),
+                            historico.getCargo().getId(),
+                            historico.getCurso().getId(),
+                            historico.getVinculo().getId(),
+                            historico.getParticipante().getId(),
+                            historico.getTipoIngresso().getId(),
+                            historico.getProjeto().getId(),
+                            historico.getId());
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCHistoricoParticipantes.class.getName()).log(Level.SEVERE, null, ex);
             }
