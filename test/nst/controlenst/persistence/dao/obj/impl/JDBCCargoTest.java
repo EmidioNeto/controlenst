@@ -4,9 +4,12 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
-import java.sql.ResultSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nst.controlenst.model.entity.Cargo;
+import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
+import nst.controlenst.persistence.dao.util.FabricaDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,14 +23,21 @@ import static org.junit.Assert.*;
  */
 public class JDBCCargoTest {
     
-    private JDBCCargo instance = null;
+    //private JDBCCargo instance = null;
+    private CargoDAO instance;
     
     public JDBCCargoTest() {
-        instance = JDBCCargo.getInstance();
+        try {
+            //instance = JDBCCargo.getInstance();
+            instance = FabricaDAO.getFactoryType().getCargoDAO();
+        } catch (Exception ex) {
+            Logger.getLogger(JDBCCargoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        
     }
 
     @AfterClass
@@ -100,7 +110,7 @@ public class JDBCCargoTest {
     @Test
     public void testGetByPrimaryKey() {
         
-        Integer id = 1;
+        Integer id = 10;
         Cargo result = instance.getByPrimaryKey(id);
         assertNotNull(result);
         

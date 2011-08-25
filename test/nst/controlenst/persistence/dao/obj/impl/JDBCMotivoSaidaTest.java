@@ -7,6 +7,8 @@ package nst.controlenst.persistence.dao.obj.impl;
 import java.sql.ResultSet;
 import java.util.List;
 import nst.controlenst.model.entity.MotivoSaida;
+import nst.controlenst.persistence.dao.factory.interfaces.MotivoSaidaDAO;
+import nst.controlenst.persistence.dao.util.FabricaDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

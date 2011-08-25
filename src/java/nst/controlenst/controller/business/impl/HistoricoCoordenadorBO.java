@@ -17,10 +17,10 @@ import nst.controlenst.persistence.dao.util.FabricaDAO;
  *
  * @author pablosouza
  */
-public class HistoricoCoordenadorBO implements IBusiness{
-    
-    
+public class HistoricoCoordenadorBO implements IBusiness {
+
     private HistoricoCoordenador historicoCoordenador = null;
+    
     private HistoricoCoordenadorDAO historicoCoordenadorDAO = null;
 
     public HistoricoCoordenadorBO() {
@@ -30,39 +30,37 @@ public class HistoricoCoordenadorBO implements IBusiness{
             Logger.getLogger(HistoricoCoordenadorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 
     @Override
     public void save(Object objeto) throws BusinessExceptions {
         this.historicoCoordenador = (HistoricoCoordenador) objeto;
-        
+
         //dataentrada nao pode ser nula
-        if(this.historicoCoordenador.getDataEntrada() == null){
+        if (this.historicoCoordenador.getDataEntrada() == null) {
             throw new BusinessExceptions("A Data de Entrada não pode ser nula");
         }
-        
+
         //coordenador nao pode esta vazio
-        if(this.historicoCoordenador.getCoordenador() == null){
+        if (this.historicoCoordenador.getCoordenador() == null) {
             throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem um Coordenador vinculado.");
         }
         //projeto nao pode estar vazio
         //coordenador nao pode esta vazio
-        if(this.historicoCoordenador.getProjeto() == null){
+        if (this.historicoCoordenador.getProjeto() == null) {
             throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem um Projeto vinculado.");
         }
-        
+
         this.historicoCoordenadorDAO.save(historicoCoordenador);
     }
 
     @Override
     public void excluir(Object objeto) throws BusinessExceptions {
         this.historicoCoordenador = (HistoricoCoordenador) objeto;
-        
-        if(this.historicoCoordenador.getId() == null || this.historicoCoordenador.getId() == 0){
+
+        if (this.historicoCoordenador.getId() == null || this.historicoCoordenador.getId() == 0) {
             throw new BusinessExceptions("Nao foi possível encontrar o indice do registro.");
         }
-        
+
         this.historicoCoordenadorDAO.delete(historicoCoordenador);
     }
 
@@ -70,5 +68,4 @@ public class HistoricoCoordenadorBO implements IBusiness{
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.historicoCoordenadorDAO.getAll();
     }
-    
 }

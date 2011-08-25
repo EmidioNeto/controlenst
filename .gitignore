@@ -4,3 +4,5 @@ build/
 /.svn/
 /nbproject/private/
 /.build/
+ConnectionHIBERNATE.java
+ConnectionJDBC.java
