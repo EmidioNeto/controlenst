@@ -1,21 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:h="http://java.sun.com/jsf/html"      
-      xmlns:f="http://java.sun.com/jsf/core"
->
-    <h:head>
-        <title>Controle de Projetos do NST</title>
-        
-        <script type="text/javascript"> 
-            jQuery(document).ready(function(){
-                jQuery('#menu_menu li:last').css({'float':'right'}); 
-            });                
-        </script>
-    </h:head>
-    <h:body>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
 
+    <ui:define name="top">
         <h:form prependId="false" style="width: 100%;">
             <p:menubar id="menu" autoSubmenuDisplay="true" >
                 <p:submenu label="Arquivo" icon="ui-icon ui-icon-document">
@@ -63,30 +53,31 @@
                 </p:submenu>
                 <p:menuitem value="Logout" url="http://www.primefaces.org" icon="ui-icon ui-icon-close" style="float: right;"/>
             </p:menubar>
+            </h:form>
+    </ui:define>
 
-            <p:layout style="height:650px;" fullPage="false">  
-                <p:layoutUnit position="left" width="150">  
-                    <h:outputText value="East unit content." />
-                </p:layoutUnit>  
+    <ui:define name="left">
+        Inicio
+        Projetos
+        Participante
+        Relatório
+    </ui:define>
 
-                <p:layoutUnit position="center" width="200" height="500" resizable="false" >  
-
-                    <h:outputText value="
-
+    <ui:define name="content">
                     Bem vindo ao Controle de Projetos do NST!
  
                     Gerencie seus projetos passo a passo,
                     Visualize o historico de projetos realizados,
                     Visualize o historico de Participantes,
-                    Verifique os erros que já ocorreram e suas soluções">
-                        
-                    </h:outputText>
-                    
-                </p:layoutUnit>                                
+                    Verifique os erros que já ocorreram e suas soluções
+    </ui:define>
 
-                    
-            </p:layout> 
-            </h:form>
-                
-    </h:body>
-</html>
+    <ui:define name="bottom">
+        <p:layoutUnit position="bottom" height="150" resizable="false" >  
+                    <h:outputText style="text-align: center !important;" value="Núcleo de serviços Tecnológicos Av. Luis Viana, n. 6775, Paralela Salvador BA,
+                                  CEP:41.745-130 Telefone: 3206-3110 © Copyright 2001/2007 - Núcleo de Serviços Tecnológicos
+                                  Todos os direitos reservados - All rights reserved." />  
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

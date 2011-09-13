@@ -3,6 +3,8 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="index.xhtml" x="506" y="153" zoom="true"/>
+        <Node id="template.xhtml" x="419" y="376" zoom="true"/>
+        <Node id="teste.xhtml" x="223" y="240" zoom="true"/>
         <Node id="publico/home.xhtml" x="134" y="81" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
