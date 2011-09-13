@@ -26,7 +26,7 @@ import nst.controlenst.persistence.dao.factory.interfaces.VinculoDAO;
  *
  * @author pablosouza
  */
-public class HIBERNATEFactory implements DAOFactory
+public class HibernateFactory implements DAOFactory
 {
     @Override
     public CargoDAO getCargoDAO() {

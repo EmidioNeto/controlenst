@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Controle de Projetos do NST</title>
+        
+        <script type="text/javascript"> 
+            jQuery(document).ready(function(){
+                jQuery('#menu_menu li:last').css({'float':'right'}); 
+            });                
+        </script>
+    </h:head>
+    <h:body>
+
+        <h:form prependId="false">
+    <p:menubar id="menu" autoSubmenuDisplay="true" >
+                <p:submenu label="Arquivo" icon="ui-icon ui-icon-document">
+                    <p:submenu label="New" icon="ui-icon ui-icon-contact">
+                        <p:menuitem value="Project" url="#" helpText="CTRL+N" />
+                        <p:menuitem value="Other" url="#" helpText="CTRL+O"/>
+                    </p:submenu>
+                    <p:menuitem value="Open" url="#" />
+                    <p:menuitem value="Quit" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Projeto" icon="ui-icon ui-icon-pencil">
+                    <p:menuitem value="Undo" url="#" icon="ui-icon ui-icon-arrowreturnthick-1-w" helpText="CTRL+Z"></p:menuitem>
+                    <p:menuitem value="Redo" url="#" icon="ui-icon ui-icon-arrowreturnthick-1-e" helpText="CTRL+Y"></p:menuitem>
+                </p:submenu>
+
+                <p:submenu label="Participante" icon="ui-icon ui-icon-help">
+                    <p:menuitem value="Contents" url="#" />
+                    <p:submenu label="Search" icon="ui-icon ui-icon-search">
+                        <p:submenu label="Text">
+                            <p:menuitem value="Workspace" url="#" />
+                        </p:submenu>
+                        <p:menuitem value="File" url="#" />
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="BugTracking" icon="ui-icon ui-icon-gear">
+                    <p:submenu label="Ajax" icon="ui-icon ui-icon-refresh">
+                        <p:menuitem value="Save" actionListener="#{buttonBean.save}" icon="ui-icon ui-icon-disk" update="messages"/>
+                        <p:menuitem value="Update" actionListener="#{buttonBean.update}" icon="ui-icon ui-icon-arrowrefresh-1-w" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Help" icon="ui-icon ui-icon-newwin">
+                        <p:menuitem value="Delete" actionListener="#{buttonBean.delete}" icon="ui-icon ui-icon-close" update="messages" ajax="false"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Help" icon="ui-icon ui-icon-gear">
+                    <p:submenu label="Ajax" icon="ui-icon ui-icon-refresh">
+                        <p:menuitem value="Save" actionListener="#{buttonBean.save}" icon="ui-icon ui-icon-disk" update="messages"/>
+                        <p:menuitem value="Update" actionListener="#{buttonBean.update}" icon="ui-icon ui-icon-arrowrefresh-1-w" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Help" icon="ui-icon ui-icon-newwin">
+                        <p:menuitem value="Delete" actionListener="#{buttonBean.delete}" icon="ui-icon ui-icon-close" update="messages" ajax="false"/>
+                    </p:submenu>
+                </p:submenu>
+                <p:menuitem value="Logout" url="http://www.primefaces.org" icon="ui-icon ui-icon-close" style="float: right;"/>
+            </p:menubar>
+
+            <p:layout style="height:100%;" fullPage="false">  
+                <p:layoutUnit position="left" width="200" height="500" resizable="false" minWidth="50" maxWidth="200">  
+                    <h:outputText value="South unit content." />  
+                </p:layoutUnit>  
+
+                <p:layoutUnit position="center" width="200" height="500" resizable="false" minWidth="50" maxWidth="200">  
+                    <h:outputText value="South unit content." />  
+                </p:layoutUnit>                  
+                
+                <p:layoutUnit position="bottom" height="75" header="Bottom" resizable="false" >  
+                    <h:outputText value="South unit content." />  
+                </p:layoutUnit>    
+            </p:layout> 
+            </h:form>
+                
+    </h:body>
+</html>
