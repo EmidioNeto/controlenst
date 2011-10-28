@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.HistoricoCoordenadorDAO;
@@ -26,8 +28,8 @@ public class CoordenadorBO implements IBusiness {
 
     public CoordenadorBO() {
         try {
-            this.coordenadorDAO = FabricaDAO.getFactoryType().getCoordenadorDAO();
-            this.historicoCoordenadorDAO = FabricaDAO.getFactoryType().getHistoricoCoordenadorDAO();
+            this.coordenadorDAO = (CoordenadorDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.COORDENADORDAO);
+            this.historicoCoordenadorDAO = (HistoricoCoordenadorDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.HISTO_COOR_DAO);
         } catch (Exception ex) {
             Logger.getLogger(CoordenadorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,4 +76,9 @@ public class CoordenadorBO implements IBusiness {
         
         this.coordenadorDAO.save(coordenador);
     }    
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.coordenadorDAO.getByPrimaryKey(id);
+    }
 }

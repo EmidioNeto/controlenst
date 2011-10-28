@@ -25,6 +25,11 @@ public class Projeto {
 
     public Projeto() {
     }
+    
+    public Projeto(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
     public Timestamp getDataCadastro() {
         return dataCadastro;
@@ -132,5 +137,8 @@ public class Projeto {
         return hash;
     }
 
-   
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }   
 }

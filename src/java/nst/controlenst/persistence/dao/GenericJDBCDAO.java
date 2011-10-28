@@ -39,6 +39,7 @@ public abstract class GenericJDBCDAO {
         }
         
         int result = ps.executeUpdate();
+        
         ps.close();
         return result;
 

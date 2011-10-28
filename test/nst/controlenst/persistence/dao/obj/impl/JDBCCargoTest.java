@@ -4,9 +4,17 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+import nst.controlenst.enums.EnumTypeFactory;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nst.controlenst.enums.EnumDAO;
+>>>>>>> emidio/master
 import nst.controlenst.model.entity.Cargo;
 import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -29,7 +37,11 @@ public class JDBCCargoTest {
     public JDBCCargoTest() {
         try {
             //instance = JDBCCargo.getInstance();
+<<<<<<< HEAD
             instance = FabricaDAO.getFactoryType().getCargoDAO();
+=======
+            instance = (CargoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.CARGODAO);
+>>>>>>> emidio/master
         } catch (Exception ex) {
             Logger.getLogger(JDBCCargoTest.class.getName()).log(Level.SEVERE, null, ex);
         }

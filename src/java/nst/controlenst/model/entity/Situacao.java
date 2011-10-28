@@ -64,6 +64,10 @@ public class Situacao implements Serializable {
         hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
         return hash;
     }
-
+    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }
    
 }

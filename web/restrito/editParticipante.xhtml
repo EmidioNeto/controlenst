@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+
+        <ui:composition template="../template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">  
+  
+                    <p:growl id="msgs" />  
+
+                    <p:panel header="Novo Participante">  
+                        <h:panelGrid columns="4" id="grid">
+                            <h:outputLabel value="Nome*" />                           
+                            <p:inputText id="edit_txt_nome" value="#{ParticipanteBean.participante.nome}" required="true" requiredMessage="Nome é um campo requerido!"/>
+                            
+                            <h:outputLabel value="E-mail*" />                           
+                            <p:inputText id="edit_txt_email" value="#{ParticipanteBean.emailParticipante.descricao}" required="true" requiredMessage="E-mail é um campo requerido!"/>
+                            
+                            <h:outputLabel value="Matrícula*" />                           
+                            <p:inputText id="edit_txt_matricula" value="#{ParticipanteBean.participante.matricula}" required="true" requiredMessage="Matrícula é um campo requerido!"/>
+                            
+                            <h:outputLabel value="Telefone*" />
+                            <h:panelGrid columns="2" id="grid_telefone">                                                           
+                                <p:inputText id="edit_txt_ddd" maxlength="3" size="3" value="#{ParticipanteBean.telefoneParticipante.ddd}" required="true" requiredMessage="DDD é um campo requerido!"/>
+                                <p:inputText id="edit_txt_telefone" maxlength="9" size="9" value="#{ParticipanteBean.telefoneParticipante.telefone}" required="true" requiredMessage="Telefone é um campo requerido!"/>
+                            </h:panelGrid>
+                            
+                            <h:outputLabel value="Curso*" />                           
+                            <h:selectOneMenu id="selectCurso" value="#{ParticipanteBean.id_curso}" required="true" requiredMessage="Curso é um campo requerido!">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaCurso}"/>
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="Cargo" />
+                            <h:selectOneMenu id="selectCargo" value="#{ParticipanteBean.id_cargo}" required="true" requiredMessage="Cargo é um campo requerido!">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaCargos}" />
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Vinculo com o Núcleo" />   
+                            <h:selectOneMenu id="selectVinculo" value="#{ParticipanteBean.id_vinculo}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaVinculos}" />
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="Semestre" />   
+                            <h:selectOneMenu id="selectSemestre" value="#{ParticipanteBean.semestre}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItem itemValue="1" itemLabel="1º Semestre" />
+                                <f:selectItem itemValue="2" itemLabel="2º Semestre" />
+                            </h:selectOneMenu>
+                            
+                            
+                            <h:outputLabel value="Tipo de Ingresso" />   
+                            <h:selectOneMenu id="selectTipoIngresso" value="#{ParticipanteBean.id_tipo_ingresso}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaTipoIngresso}" />
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="     " />   
+                            <h:outputLabel value="     " />
+                            
+                            <h:outputLabel value="Data Início" />                               
+                            <p:calendar value="#{ParticipanteBean.data_entrada}" showOn="button" />
+                            
+                            
+                            <h:outputLabel value="Data Saída" />   
+                            <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button" />
+                            
+                            <h:outputLabel value="Projeto" />                               
+                            <h:selectOneMenu id="selectProjeto" value="#{ParticipanteBean.id_projeto}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaProjeto}" />
+                            </h:selectOneMenu>
+                            
+                            
+                            <h:outputLabel value="Motivo de Saída" />   
+                            <h:selectOneMenu id="selectMotivo" value="#{ParticipanteBean.id_motivo_saida}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaMotivoSaida}" />
+                            </h:selectOneMenu>                          
+                            
+                            </h:panelGrid>  
+                            
+                        <p:commandButton immediate="false" value="Incluir Participante" ajax="false" action="#{ParticipanteBean.inserirParticipante()}" />
+
+                        
+                    </p:panel>  
+                </h:form>
+                
+                
+                
+                
+                
+                <p:outputPanel id="projetos">  
+                        <p:dataTable value="#{ParticipanteBean.listaPaticipantes}" var="historico">  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Curso" />  
+                                    <h:outputText value="#{historico.curso.descricao}" />
+                                </f:facet>  
+                            </p:column>  
+
+                            <p:column >  
+                                <f:facet name="header" >  
+                                    <h:outputText value="Semestre" />  
+                                </f:facet>  
+                            </p:column>  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Tipo Adimissão" />  
+                                </f:facet>  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Vinculo" />  
+                                </f:facet>  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Situação" />  
+                                </f:facet>  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Projeto" />  
+                                </f:facet>  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Data Inicio" />  
+                                </f:facet>  
+                                
+                            </p:column>
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Data Fim" />  
+                                </f:facet>  
+                                
+                            </p:column>
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Motivo Saída" />  
+                                </f:facet>  
+                                
+                            </p:column>
+
+                        </p:dataTable>  
+                    </p:outputPanel>
+                
+                
+                
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

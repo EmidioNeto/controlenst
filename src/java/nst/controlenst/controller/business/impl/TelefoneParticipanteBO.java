@@ -9,6 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
+import nst.controlenst.model.entity.Participante;
 import nst.controlenst.model.entity.TelefoneParticipante;
 import nst.controlenst.persistence.dao.factory.interfaces.TelefoneParticipanteDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +27,7 @@ public class TelefoneParticipanteBO implements IBusiness{
 
     public TelefoneParticipanteBO() {
         try {
-            this.telefoneParticipanteDao = FabricaDAO.getFactoryType().getTelefoneParticipanteDAO();
+            this.telefoneParticipanteDao = (TelefoneParticipanteDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.TEL_PARTI_DAO);
         } catch (Exception ex) {
             Logger.getLogger(TelefoneParticipanteBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,4 +78,12 @@ public class TelefoneParticipanteBO implements IBusiness{
         return (ArrayList<Object>) this.telefoneParticipanteDao.getAll();
     }
     
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.telefoneParticipanteDao.getByPrimaryKey(id);
+    }
+    
+    public Object obterPorParticipante(Participante p) throws BusinessExceptions {
+        return this.telefoneParticipanteDao.getByParticipante(p.getId());
+    }        
 }

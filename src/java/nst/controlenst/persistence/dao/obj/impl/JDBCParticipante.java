@@ -22,10 +22,11 @@ public class JDBCParticipante extends GenericJDBCDAO implements ParticipanteDAO{
     
     private static JDBCParticipante instancia = null;
     
-    private static final String SQL_ADD_CURSO = "INSERT INTO participantes(part_nome, part_matricula) VALUES (?, ?)";
-    private static final String SQL_UPD_CURSO = "UPDATE participantes SET part_nome = ?, part_matricula = ? WHERE part_id = ?";
-    private static final String SQL_DEL_CURSO = "DELETE FROM participantes WHERE part_id = ?";
+    private static final String SQL_ADD_PART = "INSERT INTO participantes(part_nome, part_matricula) VALUES (?, ?)";
+    private static final String SQL_UPD_PART = "UPDATE participantes SET part_nome = ?, part_matricula = ? WHERE part_id = ?";
+    private static final String SQL_DEL_PART = "DELETE FROM participantes WHERE part_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM participantes WHERE part_id= ?";
+    private static final String SQL_SEL_BYMATRICULA = "SELECT * FROM participantes WHERE part_matricula= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM participantes";
     
     private JDBCParticipante(){
@@ -43,7 +44,7 @@ public class JDBCParticipante extends GenericJDBCDAO implements ParticipanteDAO{
     @Override
     public void delete(Participante participante) {
         try {
-            executarComando(SQL_DEL_CURSO, participante.getId());
+            executarComando(SQL_DEL_PART, participante.getId());
         } catch (SQLException ex) {
             Logger.getLogger(JDBCParticipante.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,18 +81,31 @@ public class JDBCParticipante extends GenericJDBCDAO implements ParticipanteDAO{
         }
         return participante;
     }
+    
+    public Participante getByMatricula(String matricula) {
+        Participante participante = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BYMATRICULA, matricula);
+            if(rs.next()){
+                participante = (Participante) preencherEntidade(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCParticipante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return participante;
+    }
 
     @Override
     public void save(Participante participante) {
         if(participante.getId() == null || participante.getId() == 0){
             try {
-                executarComando(SQL_ADD_CURSO, participante.getNome(), participante.getMatricula());
+                executarComando(SQL_ADD_PART, participante.getNome(), participante.getMatricula());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCParticipante.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             try {
-                executarComando(SQL_UPD_CURSO, participante.getNome(), participante.getMatricula(), participante.getId());
+                executarComando(SQL_UPD_PART, participante.getNome(), participante.getMatricula(), participante.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCParticipante.class.getName()).log(Level.SEVERE, null, ex);
             }

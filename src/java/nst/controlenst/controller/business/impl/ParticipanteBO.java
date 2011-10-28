@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Participante;
 import nst.controlenst.persistence.dao.factory.interfaces.ParticipanteDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class ParticipanteBO implements IBusiness {
 
     public ParticipanteBO() {
         try {
-            this.participanteDao = FabricaDAO.getFactoryType().getParticipanteDAO();
+            this.participanteDao = (ParticipanteDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.PARTI_DAO);
         } catch (Exception ex) {
             Logger.getLogger(ParticipanteBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,5 +66,14 @@ public class ParticipanteBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.participanteDao.getAll();
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.participanteDao.getByPrimaryKey(id);
+    }
+    
+    public Object obterPorMatricula(String matricula) throws BusinessExceptions {
+        return this.participanteDao.getByMatricula(matricula);
     }
 }

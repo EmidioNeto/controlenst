@@ -23,6 +23,8 @@ public class HistoricoParticipante {
     private Participante participante;
     private TipoIngresso tipoIngresso;
     private Projeto projeto;
+    private Situacao situacao;
+    private Integer semestre;
 
     public HistoricoParticipante() {
     }
@@ -108,6 +110,23 @@ public class HistoricoParticipante {
         this.vinculo = vinculo;
     }
 
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
+    }
+
+    public Integer getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Integer semestre) {
+        this.semestre = semestre;
+    }
+
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -164,12 +183,6 @@ public class HistoricoParticipante {
         hash = 41 * hash + (this.tipoIngresso != null ? this.tipoIngresso.hashCode() : 0);
         hash = 41 * hash + (this.projeto != null ? this.projeto.hashCode() : 0);
         return hash;
-    }
-
-    
-
-  
-    
-    
+    }    
     
 }

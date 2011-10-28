@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Curso;
 import nst.controlenst.persistence.dao.factory.interfaces.CursoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class CursoBO implements IBusiness {
 
     public CursoBO() {
         try {
-            this.cursoDao = FabricaDAO.getFactoryType().getCursoDAO();
+            this.cursoDao = (CursoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.CURSODAO);
         } catch (Exception ex) {
             Logger.getLogger(CursoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,5 +61,10 @@ public class CursoBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.cursoDao.getAll();
+    }
+
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.cursoDao.getByPrimaryKey(id);
     }
 }

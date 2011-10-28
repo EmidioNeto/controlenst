@@ -16,4 +16,5 @@ public interface HIstoricoParticipanteDAO {
     public List getAll();
     public HistoricoParticipante getByPrimaryKey(Integer id);
     public void save(HistoricoParticipante historico);
+    public List getByParticipante(Integer id);
 }

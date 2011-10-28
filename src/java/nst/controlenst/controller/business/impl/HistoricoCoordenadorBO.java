@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.HistoricoCoordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.HistoricoCoordenadorDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -25,7 +27,7 @@ public class HistoricoCoordenadorBO implements IBusiness {
 
     public HistoricoCoordenadorBO() {
         try {
-            historicoCoordenadorDAO = FabricaDAO.getFactoryType().getHistoricoCoordenadorDAO();
+            historicoCoordenadorDAO = (HistoricoCoordenadorDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.HISTO_COOR_DAO);
         } catch (Exception ex) {
             Logger.getLogger(HistoricoCoordenadorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,4 +70,12 @@ public class HistoricoCoordenadorBO implements IBusiness {
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.historicoCoordenadorDAO.getAll();
     }
+<<<<<<< HEAD
+=======
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.historicoCoordenadorDAO.getByPrimaryKey(id);
+    }
+>>>>>>> emidio/master
 }

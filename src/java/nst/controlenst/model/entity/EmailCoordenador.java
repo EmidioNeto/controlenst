@@ -77,6 +77,9 @@ public class EmailCoordenador {
         return hash;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }    
     
 }

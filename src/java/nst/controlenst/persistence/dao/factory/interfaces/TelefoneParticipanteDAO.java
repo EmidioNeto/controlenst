@@ -16,4 +16,5 @@ public interface TelefoneParticipanteDAO {
     public List getAll();
     public TelefoneParticipante getByPrimaryKey(Integer id);
     public void save(TelefoneParticipante telefone);
+    public TelefoneParticipante getByParticipante(Integer id);
 }

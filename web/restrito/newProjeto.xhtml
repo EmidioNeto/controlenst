@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="../template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">  
+  
+                    <p:growl id="msgs" />  
+
+                    <p:panel header="Novo Projeto">  
+                        <h:panelGrid columns="4" id="grid">
+                            <h:outputLabel value="Nome*" />                           
+                            <p:inputText id="edit_txt_nome" value="#{ProjetoBean.projeto.nome}" required="true"/>
+                            
+                            <h:outputLabel value="Tipo de Projeto*" />                           
+                            <h:selectOneMenu value="#{ProjetoBean.id_tipo_projeto}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ProjetoBean.listaTipo}" />
+                            </h:selectOneMenu>
+                            
+                            
+                            <h:outputLabel value="Status*" />                           
+                            <h:selectOneMenu id="selectStatus" value="#{ProjetoBean.id_status}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ProjetoBean.listaSituacao}" />
+                            </h:selectOneMenu>
+                            
+                            
+                            <h:outputLabel value="Identificador*" />                           
+                            <p:inputText id="edit_txt_identificador" value="#{ProjetoBean.projeto.identificador}" required="true"/>
+                            
+                            <h:outputLabel value="Descrição" />
+                            <p:inputTextarea id="edit_txt_descricao" rows="4" value="#{ProjetoBean.projeto.descricao}" required="true"/>                            
+
+                            
+                                <h:outputLabel value="Data Inicio*" />                           
+                                <p:calendar value="#{ProjetoBean.data_inicio}" showOn="button" />
+
+                                <h:outputLabel value="Previsão de Termino" />
+                                <p:calendar value="#{ProjetoBean.data_encer_previsto}" showOn="button" />
+
+                                <h:outputLabel value="Data Fim" />   
+                                <p:calendar value="#{ProjetoBean.data_encerramento}" showOn="button" />
+                            
+                                
+                            <h:outputLabel value="Coordenador*" />                           
+                            <h:selectOneMenu id="selectCoordenador" value="#{ProjetoBean.id_coordenador}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ProjetoBean.listaCoordenador}" />
+                            </h:selectOneMenu>
+                                
+                            <h:commandButton value="Incluir" action="#{ProjetoBean.adicionarAprojeto()}"/>   
+                            <h:outputLabel value="     " />
+                            
+                                <h:outputLabel value="Participante*" />                           
+                                <h:selectOneMenu id="selectParticipante" value="#{ProjetoBean.id_participante}">
+                                    <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                    <f:selectItems value="#{ProjetoBean.listaParticipante}" />
+                                </h:selectOneMenu>
+                            
+                                <h:outputLabel value="Função*" />                           
+                                <h:selectOneMenu id="selectCargo" value="#{ProjetoBean.id_cargo}">
+                                    <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                    <f:selectItems value="#{ProjetoBean.listaCargo}" />
+                                </h:selectOneMenu>
+
+                                <h:commandButton value="Incluir" action="#{ProjetoBean.adicionarAprojeto()}"/>
+                            </h:panelGrid>  
+                        <p:panel id="participantes_projeto" style="width: 600px;">  
+                        <p:dataTable value="#{ProjetoBean.listaParticipanteProjeto}" var="participante" emptyMessage="Não há Participantes cadastrados." paginator="true" rows="3"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">  
+
+                            <p:column>  
+                                <f:facet name="header" >  
+                                    <h:outputText value="Nome" />  
+                                </f:facet>  
+                                <h:outputText value="#{participante.nome}" />  
+                            </p:column>
+                            
+                            <p:column style="width: 100px;">  
+                                <f:facet name="header">  
+                                    <h:outputText value="Matricula" />  
+                                </f:facet>  
+                                <h:outputText value="#{participante.matricula}" />  
+                            </p:column>                            
+                            <p:column style="width: 50px;">
+                                <f:facet name="header">  
+                                    <h:outputText value="Remover" />  
+                                </f:facet>
+                                <p:commandLink title="Remover" onclick="confirmation.show()" update="projetos">
+                                    <p:graphicImage value="/imagens/delete.png"/>  
+                                    <f:setPropertyActionListener target="#{ProjetoBean.participante}" value="#{participante}" />
+                                </p:commandLink>
+                            </p:column>    
+                        </p:dataTable>  
+                    </p:panel> 
+                    </p:panel>  
+                    <h:commandButton value="Incluir Projeto" action="#{ProjetoBean.inserirProjeto()}" />
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

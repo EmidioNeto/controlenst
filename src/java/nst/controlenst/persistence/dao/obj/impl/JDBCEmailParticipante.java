@@ -25,6 +25,7 @@ public class JDBCEmailParticipante extends GenericJDBCDAO implements EmailPartic
     private static final String SQL_UPD_EMAIL = "UPDATE Emails_Participantes SET email_part_descricao = ?, fk_part_id = ? WHERE email_part_id = ?";
     private static final String SQL_DEL_EMAIL = "DELETE FROM Emails_Participantes WHERE email_part_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM Emails_Participantes WHERE email_part_id= ?";
+    private static final String SQL_SEL_BYPARTI = "SELECT * FROM Emails_participantes WHERE fk_part_id = ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM Emails_Participantes";
 
     private JDBCEmailParticipante() {
@@ -104,4 +105,18 @@ public class JDBCEmailParticipante extends GenericJDBCDAO implements EmailPartic
         email.setParticipante(JDBCParticipante.getInstance().getByPrimaryKey(rs.getInt("FK_PART_ID")));
         return email;
     }
+
+    @Override
+    public EmailParticipante getByParticipante(Integer id) {
+        EmailParticipante email = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BYPARTI, id);
+            if (rs.next()) {
+                email = (EmailParticipante) preencherEntidade(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCEmailParticipante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return email;
+    }    
 }

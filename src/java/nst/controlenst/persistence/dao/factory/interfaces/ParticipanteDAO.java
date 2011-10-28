@@ -15,5 +15,6 @@ public interface ParticipanteDAO {
     public void delete(Participante participante);
     public List getAll();
     public Participante getByPrimaryKey(Integer id);
+    public Participante getByMatricula(String matricula);
     public void save(Participante participante);
 }

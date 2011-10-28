@@ -76,5 +76,8 @@ public class Participante {
         return hash;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getNome();
+    }    
 }

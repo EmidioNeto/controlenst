@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        
+        
+        
+        <title>Controle de Projetos de NST</title>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                jQuery('#menu_menu li:last').css({'float':'right'});;
+            });            
+        </script>
+        
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+                    <h:form prependId="false" style="width: 100%;">
+            <p:menubar id="menu" autoSubmenuDisplay="true" >
+                <p:submenu label="Arquivo" icon="ui-icon ui-icon-document">
+                    <p:submenu label="New" icon="ui-icon ui-icon-contact">
+                        <p:menuitem value="Project" url="#" helpText="CTRL+N" />
+                        <p:menuitem value="Other" url="#" helpText="CTRL+O"/>
+                    </p:submenu>
+                    <p:menuitem value="Open" url="#" />
+                    <p:menuitem value="Quit" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Projeto" icon="ui-icon ui-icon-pencil">
+                    <p:menuitem value="Undo" url="#" icon="ui-icon ui-icon-arrowreturnthick-1-w" helpText="CTRL+Z"></p:menuitem>
+                    <p:menuitem value="Redo" url="#" icon="ui-icon ui-icon-arrowreturnthick-1-e" helpText="CTRL+Y"></p:menuitem>
+                </p:submenu>
+
+                <p:submenu label="Participante" icon="ui-icon ui-icon-help">
+                    <p:menuitem value="Contents" url="#" />
+                    <p:submenu label="Search" icon="ui-icon ui-icon-search">
+                        <p:submenu label="Text">
+                            <p:menuitem value="Workspace" url="#" />
+                        </p:submenu>
+                        <p:menuitem value="File" url="#" />
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="BugTracking" icon="ui-icon ui-icon-gear">
+                    <p:submenu label="Ajax" icon="ui-icon ui-icon-refresh">
+                        <p:menuitem value="Save" actionListener="#{buttonBean.save}" icon="ui-icon ui-icon-disk" update="messages"/>
+                        <p:menuitem value="Update" actionListener="#{buttonBean.update}" icon="ui-icon ui-icon-arrowrefresh-1-w" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Help" icon="ui-icon ui-icon-newwin">
+                        <p:menuitem value="Delete" actionListener="#{buttonBean.delete}" icon="ui-icon ui-icon-close" update="messages" ajax="false"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Help" icon="ui-icon ui-icon-gear">
+                    <p:submenu label="Ajax" icon="ui-icon ui-icon-refresh">
+                        <p:menuitem value="Save" actionListener="#{buttonBean.save}" icon="ui-icon ui-icon-disk" update="messages"/>
+                        <p:menuitem value="Update" actionListener="#{buttonBean.update}" icon="ui-icon ui-icon-arrowrefresh-1-w" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Help" icon="ui-icon ui-icon-newwin">
+                        <p:menuitem value="Delete" actionListener="#{buttonBean.delete}" icon="ui-icon ui-icon-close" update="messages" ajax="false"/>
+                    </p:submenu>
+                </p:submenu>
+                <p:menuitem value="Logout" url="http://www.primefaces.org" icon="ui-icon ui-icon-close" style="float: right;"/>
+            </p:menubar>
+            </h:form>
+        </div>
+        <div>
+            <div id="left">
+                <h:form >
+                    <h:commandLink action="home">
+                        <div id="menu-left-icon-back"></div>
+                    </h:commandLink>                    
+                    
+                    <h:commandLink action="list_projetos">
+                        <div id="menu-left-icon-projetos"></div>
+                    </h:commandLink>
+                    
+                    <h:commandLink action="list_paticipantes">
+                        <div id="menu-left-icon-participantes"></div>
+                    </h:commandLink>
+                    
+                    <h:commandLink action="tela_relatorios">
+                        <div id="menu-left-icon-relatorio"></div>
+                    </h:commandLink>
+                </h:form>               
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+        <p:layoutUnit position="bottom" height="150" resizable="false" >  
+                    <h:outputText style="text-align: center !important;" value="Núcleo de serviços Tecnológicos Av. Luis Viana, n. 6775, Paralela Salvador BA,
+                                  CEP:41.745-130 Telefone: 3206-3110 © Copyright 2001/2007 - Núcleo de Serviços Tecnológicos
+                                  Todos os direitos reservados - All rights reserved." />  
+        </p:layoutUnit>            
+        </div>
+
+    </h:body>
+
+</html>

@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.TelefoneCoordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.TelefoneCoordenadorDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class TelefoneCoordenadorBO implements IBusiness {
 
     public TelefoneCoordenadorBO() {
         try {
-            this.telefoneCoordenadorDao = FabricaDAO.getFactoryType().getTelefoneCoordenadorDAO();
+            this.telefoneCoordenadorDao = (TelefoneCoordenadorDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.TEL_COOR_DAO);
         } catch (Exception ex) {
             Logger.getLogger(TelefoneCoordenadorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,5 +75,10 @@ public class TelefoneCoordenadorBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.telefoneCoordenadorDao.getAll();
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.telefoneCoordenadorDao.getByPrimaryKey(id);
     }
 }
