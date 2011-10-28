@@ -4,23 +4,8 @@
  */
 package nst.controlenst.persistence.dao.factory.impl;
 
-import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.CursoDAO;
+import nst.controlenst.persistence.dao.GenericJDBCDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.DAOFactory;
-import nst.controlenst.persistence.dao.factory.interfaces.EmailCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.EmailParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.HIstoricoParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.HistoricoCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.MotivoSaidaDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.ParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.ProjetoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.SituacaoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TelefoneCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TelefoneParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TipoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TipoIngressoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.VinculoDAO;
 import nst.controlenst.persistence.dao.obj.impl.JDBCCargo;
 import nst.controlenst.persistence.dao.obj.impl.JDBCCoordenador;
 import nst.controlenst.persistence.dao.obj.impl.JDBCCurso;
@@ -37,93 +22,52 @@ import nst.controlenst.persistence.dao.obj.impl.JDBCTelefoneParticipante;
 import nst.controlenst.persistence.dao.obj.impl.JDBCTipo;
 import nst.controlenst.persistence.dao.obj.impl.JDBCTipoIngresso;
 import nst.controlenst.persistence.dao.obj.impl.JDBCVinculo;
-
-
+import nst.controlenst.enums.EnumDAO;
 
 /**
  *
  * @author pablosouza
  */
 public class JDBCFactory implements DAOFactory{
-
     @Override
-    public CargoDAO getCargoDAO() {
-        return JDBCCargo.getInstance();
-    }
-
-    @Override
-    public CursoDAO getCursoDAO() {
-        return JDBCCurso.getInstance();
-    }
-
-    @Override
-    public MotivoSaidaDAO getMotivoSaidaDAO() {
-        return JDBCMotivoSaida.getInstance();
-    }
-
-    @Override
-    public SituacaoDAO getSituacaoDAO() {
-        return JDBCSituacao.getInstance();
-    }
-
-    @Override
-    public TipoDAO getTipoDAO() {
-        return JDBCTipo.getInstance();
-    }
-
-    @Override
-    public TipoIngressoDAO getTipoIngressoDAO() {
-        return JDBCTipoIngresso.getInstance();
-    }
-
-    @Override
-    public VinculoDAO getVinculoDAO() {
-        return JDBCVinculo.getInstance();
-    }
-
-    @Override
-    public CoordenadorDAO getCoordenadorDAO() {
-        return JDBCCoordenador.getInstance();
-    }
-
-    @Override
-    public EmailCoordenadorDAO getEmailCoordenadorDAO() {
-        return JDBCEmailCoordenadores.getInstance();
-    }
-
-    @Override
-    public EmailParticipanteDAO getEmailParticipanteDAO() {
-        return JDBCEmailParticipante.getInstance();
-    }
-
-    @Override
-    public HIstoricoParticipanteDAO getHistoricoParticipanteDAO() {
-        return JDBCHistoricoParticipantes.getInstance();
-    }
-
-    @Override
-    public HistoricoCoordenadorDAO getHistoricoCoordenadorDAO() {
-        return JDBCHIstoricoCoordenador.getInstance();
-    }
-
-    @Override
-    public ParticipanteDAO getParticipanteDAO() {
-        return JDBCParticipante.getInstance();
-    }
-
-    @Override
-    public ProjetoDAO getProjetoDAO() {
-        return JDBCProjeto.getInstance();
-    }
-
-    @Override
-    public TelefoneCoordenadorDAO getTelefoneCoordenadorDAO() {
-        return JDBCTelefoneCoordenador.getInstance();
-    }
-
-    @Override
-    public TelefoneParticipanteDAO getTelefoneParticipanteDAO() {
-        return JDBCTelefoneParticipante.getInstance();
+    public GenericJDBCDAO getDAO(EnumDAO D) {
+        
+        if(D.equals(EnumDAO.CARGODAO) ){
+            return JDBCCargo.getInstance();
+        }else if(D.equals(EnumDAO.COORDENADORDAO) ){
+            return JDBCCoordenador.getInstance();
+        }else if(D.equals(EnumDAO.CURSODAO) ){
+            return JDBCCurso.getInstance();
+        }else if(D.equals(EnumDAO.EMAILCOORDENADORDAO) ){
+            return JDBCEmailCoordenadores.getInstance();
+        }else if(D.equals(EnumDAO.EMAILPARTICIPANTEDAO) ){
+            return JDBCEmailParticipante.getInstance();
+        }else if(D.equals(EnumDAO.HISTO_COOR_DAO) ){
+            return JDBCHIstoricoCoordenador.getInstance();
+        }else if(D.equals(EnumDAO.HIST_PARTI_DAO) ){
+            return JDBCHistoricoParticipantes.getInstance();
+        }else if(D.equals(EnumDAO.MOTIVO_SAIDA_DAO) ){
+            return JDBCMotivoSaida.getInstance();
+        }else if(D.equals(EnumDAO.PARTI_DAO) ){
+            return JDBCParticipante.getInstance();
+        }else if(D.equals(EnumDAO.PROJETO_DAO) ){
+            return JDBCProjeto.getInstance();
+        }else if(D.equals(EnumDAO.SITU_DAO) ){
+            return JDBCSituacao.getInstance();
+        }else if(D.equals(EnumDAO.TEL_COOR_DAO) ){    
+            return JDBCTelefoneCoordenador.getInstance();
+        }else if(D.equals(EnumDAO.TEL_PARTI_DAO) ){
+            return JDBCTelefoneParticipante.getInstance();
+        }else if(D.equals(EnumDAO.TIPO_DAO) ){
+            return JDBCTipo.getInstance();
+        }else if(D.equals(EnumDAO.TIPO_INGRE_DAO) ){
+            return JDBCTipoIngresso.getInstance();
+        }else if(D.equals(EnumDAO.VINCU_DAO) ){
+            return JDBCVinculo.getInstance();
+        }else{
+            return  null;
+        }
+        
     }
     
 }

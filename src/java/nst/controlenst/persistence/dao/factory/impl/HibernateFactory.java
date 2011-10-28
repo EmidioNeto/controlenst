@@ -4,24 +4,25 @@
  */
 package nst.controlenst.persistence.dao.factory.impl;
 
-import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.CursoDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.DAOFactory;
-import nst.controlenst.persistence.dao.factory.interfaces.EmailCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.EmailParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.HIstoricoParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.HistoricoCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.MotivoSaidaDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.ParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.ProjetoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.SituacaoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TelefoneCoordenadorDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TelefoneParticipanteDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TipoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.TipoIngressoDAO;
-import nst.controlenst.persistence.dao.factory.interfaces.VinculoDAO;
-
+import nst.controlenst.persistence.dao.obj.impl.JDBCCargo;
+import nst.controlenst.persistence.dao.obj.impl.JDBCCoordenador;
+import nst.controlenst.persistence.dao.obj.impl.JDBCCurso;
+import nst.controlenst.persistence.dao.obj.impl.JDBCEmailCoordenadores;
+import nst.controlenst.persistence.dao.obj.impl.JDBCEmailParticipante;
+import nst.controlenst.persistence.dao.obj.impl.JDBCHIstoricoCoordenador;
+import nst.controlenst.persistence.dao.obj.impl.JDBCHistoricoParticipantes;
+import nst.controlenst.persistence.dao.obj.impl.JDBCMotivoSaida;
+import nst.controlenst.persistence.dao.obj.impl.JDBCParticipante;
+import nst.controlenst.persistence.dao.obj.impl.JDBCProjeto;
+import nst.controlenst.persistence.dao.obj.impl.JDBCSituacao;
+import nst.controlenst.persistence.dao.obj.impl.JDBCTelefoneCoordenador;
+import nst.controlenst.persistence.dao.obj.impl.JDBCTelefoneParticipante;
+import nst.controlenst.persistence.dao.obj.impl.JDBCTipo;
+import nst.controlenst.persistence.dao.obj.impl.JDBCTipoIngresso;
+import nst.controlenst.persistence.dao.obj.impl.JDBCVinculo;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.persistence.dao.GenericJDBCDAO;
 /**
  *
  * @author pablosouza
@@ -29,82 +30,43 @@ import nst.controlenst.persistence.dao.factory.interfaces.VinculoDAO;
 public class HibernateFactory implements DAOFactory
 {
     @Override
-    public CargoDAO getCargoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public CursoDAO getCursoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public MotivoSaidaDAO getMotivoSaidaDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public SituacaoDAO getSituacaoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TipoDAO getTipoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TipoIngressoDAO getTipoIngressoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public VinculoDAO getVinculoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public CoordenadorDAO getCoordenadorDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public EmailCoordenadorDAO getEmailCoordenadorDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public EmailParticipanteDAO getEmailParticipanteDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public HIstoricoParticipanteDAO getHistoricoParticipanteDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public HistoricoCoordenadorDAO getHistoricoCoordenadorDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public ParticipanteDAO getParticipanteDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public ProjetoDAO getProjetoDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TelefoneCoordenadorDAO getTelefoneCoordenadorDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TelefoneParticipanteDAO getTelefoneParticipanteDAO() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public GenericJDBCDAO getDAO(EnumDAO D) {
+        
+        if(D.equals(EnumDAO.CARGODAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.COORDENADORDAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.CURSODAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.EMAILCOORDENADORDAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.EMAILPARTICIPANTEDAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.HISTO_COOR_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.HIST_PARTI_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.MOTIVO_SAIDA_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.PARTI_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.PROJETO_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.SITU_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.TEL_COOR_DAO) ){    
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.TEL_PARTI_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.TIPO_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.TIPO_INGRE_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else if(D.equals(EnumDAO.VINCU_DAO) ){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }else{
+            return  null;
+        }
+        
     }
 }

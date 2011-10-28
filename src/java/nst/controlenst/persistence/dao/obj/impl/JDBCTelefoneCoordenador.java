@@ -4,7 +4,6 @@
  */
 package nst.controlenst.persistence.dao.obj.impl;
 
-import com.sun.org.apache.regexp.internal.REUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,9 +22,9 @@ public class JDBCTelefoneCoordenador extends GenericJDBCDAO implements TelefoneC
     
     private static JDBCTelefoneCoordenador instacia = null;
     
-    private static final String SQL_ADD_CURSO = "INSERT INTO telefones_coordenadores(tel_coord_ddd, tel_coord_telefone, fk_coord_id) VALUES (?, ?, ?)";
-    private static final String SQL_UPD_CURSO = "UPDATE telefones_coordenadores SET tel_coord_ddd = ?, tel_coord_telefone = ?, fk_coord_id = ? WHERE tel_coord_id = ?";
-    private static final String SQL_DEL_CURSO = "DELETE FROM telefones_coordenadores WHERE tel_coord_id = ?";
+    private static final String SQL_ADD_COOR = "INSERT INTO telefones_coordenadores(tel_coord_ddd, tel_coord_telefone, fk_coord_id) VALUES (?, ?, ?)";
+    private static final String SQL_UPD_COOR = "UPDATE telefones_coordenadores SET tel_coord_ddd = ?, tel_coord_telefone = ?, fk_coord_id = ? WHERE tel_coord_id = ?";
+    private static final String SQL_DEL_COOR = "DELETE FROM telefones_coordenadores WHERE tel_coord_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM telefones_coordenadores WHERE tel_coord_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM telefones_coordenadores";
     
@@ -45,7 +44,7 @@ public class JDBCTelefoneCoordenador extends GenericJDBCDAO implements TelefoneC
     @Override
     public void delete(TelefoneCoordenador telefone) {
         try {
-            executarComando(SQL_DEL_CURSO, telefone.getId());
+            executarComando(SQL_DEL_COOR, telefone.getId());
         } catch (SQLException ex) {
             Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,13 +86,13 @@ public class JDBCTelefoneCoordenador extends GenericJDBCDAO implements TelefoneC
     public void save(TelefoneCoordenador telefone) {
         if(telefone.getId() == null || telefone.getId() == 0){
             try {
-                executarComando(SQL_ADD_CURSO, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId());
+                executarComando(SQL_ADD_COOR, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             try {
-                executarComando(SQL_UPD_CURSO, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId(), telefone.getId());
+                executarComando(SQL_UPD_COOR, telefone.getDdd(), telefone.getTelefone(), telefone.getCoordenador().getId(), telefone.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(JDBCTelefoneCoordenador.class.getName()).log(Level.SEVERE, null, ex);
             }

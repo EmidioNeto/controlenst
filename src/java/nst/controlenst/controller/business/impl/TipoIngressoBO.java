@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.TipoIngresso;
 import nst.controlenst.persistence.dao.factory.interfaces.TipoIngressoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class TipoIngressoBO implements IBusiness {
 
     public TipoIngressoBO() {
         try {
-            this.tipoIngressoDao = FabricaDAO.getFactoryType().getTipoIngressoDAO();
+            this.tipoIngressoDao = (TipoIngressoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.TIPO_INGRE_DAO);
         } catch (Exception ex) {
             Logger.getLogger(TipoIngressoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,5 +59,10 @@ public class TipoIngressoBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
        return (ArrayList<Object>) this.tipoIngressoDao.getAll();
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.tipoIngressoDao.getByPrimaryKey(id);
     }
 }

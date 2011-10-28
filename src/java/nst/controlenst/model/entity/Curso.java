@@ -60,8 +60,15 @@ public class Curso implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 89 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
         return hash;
     }
+
+
+    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }        
 }

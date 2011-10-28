@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="../template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">  
+  
+                    <p:growl id="msgs" />  
+
+                    <p:panel header="Relatórios">  
+                        <h:panelGrid columns="8" id="filtro">
+                            <h:panelGrid columns="1" id="check1">
+                                <h:outputLabel value="Principal" />
+                                <h:selectBooleanCheckbox >Projeto</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >Participante</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >BugTracking</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >Gerenciador</h:selectBooleanCheckbox>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" id="check2">
+                                <h:outputLabel value="Secundário" />
+                                <h:selectBooleanCheckbox >Tecnologia Aplicada</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >Iniciação Cientifica</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >Treinamento</h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox >Todos</h:selectBooleanCheckbox>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" id="datas">
+                                <h:outputLabel value="Período de:" />
+                                <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button" />
+
+                                <h:outputLabel value="Até:" />
+                                <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button" />
+                            </h:panelGrid>
+                            <h:commandButton value="Buscar" action="asdasas" />
+                        </h:panelGrid>  
+                        <p:outputPanel id="resultado">  
+                        <p:dataTable value="#{createBookBean.books}" var="book">  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="PROJETOS" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.title}" />  
+                            </p:column>  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="TIPO" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.author}" />  
+                            </p:column>  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="STATUS" />  
+                                </f:facet>  
+                                <p:commandLink value="Remove" update="form:books" process="@this">  
+                                    <p:collector value="#{book}"  
+                                                 removeFrom="#{createBookBean.books}" />  
+                                </p:commandLink>  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="DATA INÍCIO" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.author}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="DATA PREV FIM" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.author}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="DATA FIM" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.author}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="COORDENADOR" />  
+                                </f:facet>  
+                                <h:outputText value="#{book.author}" />  
+                            </p:column>
+
+                        </p:dataTable>  
+                    </p:outputPanel>
+                            
+                    <h:commandButton value="Imprimir" action="saas" />
+
+                        
+                    </p:panel>  
+
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

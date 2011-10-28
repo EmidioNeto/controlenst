@@ -90,5 +90,8 @@ public class TelefoneParticipante {
         return hash;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getDdd() + this.getTelefone();
+    }    
 }

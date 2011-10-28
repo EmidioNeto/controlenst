@@ -76,5 +76,8 @@ public class EmailParticipante {
         this.participante = participante;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }    
 }

@@ -25,6 +25,7 @@ public class JDBCTelefoneParticipante extends GenericJDBCDAO implements Telefone
     private static final String SQL_ADD_TELPART = "INSERT INTO telefones_participantes(tel_part_ddd, tel_part_telefone, fk_part_id) VALUES (?, ?, ?)";
     private static final String SQL_UPD_TELPART = "UPDATE telefones_participantes SET tel_part_ddd = ?, tel_part_telefone = ?, fk_part_id = ? WHERE tel_part_id = ?";
     private static final String SQL_DEL_TELPART = "DELETE FROM telefones_participantes WHERE tel_part_id = ?";
+    private static final String SQL_SEL_BYPARTI = "SELECT * FROM telefones_participantes WHERE fk_part_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM telefones_participantes WHERE tel_part_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM telefones_participantes";
     
@@ -108,6 +109,20 @@ public class JDBCTelefoneParticipante extends GenericJDBCDAO implements Telefone
         telefone.setTelefone(rs.getString("tel_part_telefone"));
         return telefone;
         
+    }
+
+    @Override
+    public TelefoneParticipante getByParticipante(Integer id) {
+        TelefoneParticipante telefone = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BYPARTI, id);
+            if (rs.next()) {
+                telefone = (TelefoneParticipante) preencherEntidade(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCTelefoneParticipante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return telefone;
     }
     
 }

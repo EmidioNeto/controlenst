@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Situacao;
 import nst.controlenst.persistence.dao.factory.interfaces.SituacaoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -28,7 +30,7 @@ public class SituacaoBO implements IBusiness{
 
     public SituacaoBO() {
         try {
-            this.situacaoDao = FabricaDAO.getFactoryType().getSituacaoDAO();
+            this.situacaoDao = (SituacaoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.SITU_DAO);
         } catch (Exception ex) {
             Logger.getLogger(SituacaoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,6 +63,11 @@ public class SituacaoBO implements IBusiness{
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.situacaoDao.getAll();
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.situacaoDao.getByPrimaryKey(id);
     }
     
 }

@@ -61,9 +61,9 @@ public class Coordenador {
         hash = 31 * hash + (this.nome != null ? this.nome.hashCode() : 0);
         return hash;
     }
-
-   
     
-    
-    
+    @Override
+    public String toString(){
+        return this.getNome();
+    }    
 }

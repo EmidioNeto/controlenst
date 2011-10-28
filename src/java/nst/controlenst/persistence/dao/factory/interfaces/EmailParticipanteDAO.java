@@ -16,4 +16,5 @@ public interface EmailParticipanteDAO {
     public List getAll();
     public EmailParticipante getByPrimaryKey(Integer id);
     public void save(EmailParticipante email);
+    public EmailParticipante getByParticipante(Integer id);    
 }

@@ -64,5 +64,8 @@ public class Tipo implements Serializable{
         return hash;
     }
 
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }
 }

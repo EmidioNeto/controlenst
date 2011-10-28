@@ -5,11 +5,12 @@
 package nst.controlenst.controller.business.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Projeto;
 import nst.controlenst.persistence.dao.factory.interfaces.ProjetoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -25,7 +26,7 @@ public class ProjetoBO implements IBusiness {
 
     public ProjetoBO() {
         try {
-            this.projetoDao = FabricaDAO.getFactoryType().getProjetoDAO();
+            this.projetoDao = (ProjetoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.PROJETO_DAO);
         } catch (Exception ex) {
             Logger.getLogger(ProjetoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,5 +101,10 @@ public class ProjetoBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.projetoDao.getAll();
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.projetoDao.getByPrimaryKey(id);
     }
 }

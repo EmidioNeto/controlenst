@@ -14,5 +14,6 @@ import nst.controlenst.controller.business.exception.BusinessExceptions;
 public interface IBusiness {
     public void save(Object objeto) throws BusinessExceptions;
     public void excluir(Object objeto) throws BusinessExceptions;
+    public Object obter(Integer id) throws BusinessExceptions;
     public ArrayList<Object> listar() throws BusinessExceptions;
 }

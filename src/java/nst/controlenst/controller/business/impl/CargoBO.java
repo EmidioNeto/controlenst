@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import java.util.ArrayList;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Cargo;
 import nst.controlenst.persistence.dao.factory.interfaces.CargoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class CargoBO implements IBusiness {
   
     public CargoBO() {
         try {
-            this.cargoDAO = FabricaDAO.getFactoryType().getCargoDAO();
+            this.cargoDAO = (CargoDAO) FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.CARGODAO);
         } catch (Exception ex) {
             Logger.getLogger(CargoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,5 +56,10 @@ public class CargoBO implements IBusiness {
             throw new BusinessExceptions("O campo Descrição não pode ser nulo.");
         }   
         this.cargoDAO.save(cargo);
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.cargoDAO.getByPrimaryKey(id);
     }
 }

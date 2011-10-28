@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.MotivoSaida;
 import nst.controlenst.persistence.dao.factory.interfaces.MotivoSaidaDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -25,7 +27,7 @@ public class MotivoSaidaBO implements IBusiness {
 
     public MotivoSaidaBO() {
         try {
-            this.motivoSaidaDao = FabricaDAO.getFactoryType().getMotivoSaidaDAO();
+            this.motivoSaidaDao = (MotivoSaidaDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.MOTIVO_SAIDA_DAO);
         } catch (Exception ex) {
             Logger.getLogger(MotivoSaidaBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,5 +56,10 @@ public class MotivoSaidaBO implements IBusiness {
     @Override
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.motivoSaidaDao.getAll();
+    }
+
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.motivoSaidaDao.getByPrimaryKey(id);
     }
 }

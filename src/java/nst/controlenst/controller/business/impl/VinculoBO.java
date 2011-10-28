@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Vinculo;
 import nst.controlenst.persistence.dao.factory.interfaces.VinculoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -24,7 +26,7 @@ public class VinculoBO implements IBusiness {
 
     public VinculoBO() {
         try {
-            this.vinculoDAO = FabricaDAO.getFactoryType().getVinculoDAO();
+            this.vinculoDAO = (VinculoDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.VINCU_DAO);
         } catch (Exception ex) {
             Logger.getLogger(VinculoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,5 +61,10 @@ public class VinculoBO implements IBusiness {
         }
 
         this.vinculoDAO.save(vinculo);
+    }
+    
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.vinculoDAO.getByPrimaryKey(id);
     }
 }

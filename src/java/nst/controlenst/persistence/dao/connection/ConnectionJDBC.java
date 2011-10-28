@@ -17,11 +17,28 @@ public class ConnectionJDBC {
                 Class.forName("org.postgresql.Driver");
                 conexao = (Connection) DriverManager.getConnection(
                         "jdbc:postgresql://localhost:5432/controle_nst", "postgres", "admin");
+                conexao.setAutoCommit(false);
                 //System.out.println("Conexao realizada com sucesso!");
             } catch (Exception ex) {
                 System.out.println("Ocorreu o seguinte erro: " + ex);
             }
         }
         return conexao;
+    }
+    
+    public static void doRollback() {
+        try {
+            getConnection().rollback();
+        } catch (Exception ex) {
+            System.out.println("Ocorreu o seguinte erro: " + ex);
+        }
+    }
+    
+    public static void doCommit() {
+        try {
+            getConnection().commit();
+        } catch (Exception ex) {
+            System.out.println("Ocorreu o seguinte erro: " + ex);
+        }
     }
 }

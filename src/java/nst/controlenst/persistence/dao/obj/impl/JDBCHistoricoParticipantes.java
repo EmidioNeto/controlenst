@@ -28,8 +28,9 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
             + "fk_cur_id,"
             + "fk_vinc_id,"
             + "fk_part_id,"
+            + "histp_semestre,"            
             + "fk_ing_id,"
-            + "fk_proj_id) VALUES (?,?,?,?,?,?,?)";
+            + "fk_proj_id) VALUES (?,?,?,?,?,?,?,?)";
     /*
      * Constante utilizada considerando somente a saida do participante.
      */
@@ -46,11 +47,14 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
             + " fk_cur_id = ?,"
             + "fk_vinc_id = ?,"
             + "fk_part_id = ?,"
+            + "fk_sit_id,"
+            + "histp_semestre,"
             + "fk_ing_id = ?,"
             + "fk_proj_id = ?"
             + " WHERE histp_id = ?";
     private static final String SQL_DEL_HIST = "DELETE FROM historico_participantes WHERE histp_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM historico_participantes WHERE histp_id= ?";
+    private static final String SQL_SEL_BYPARTI = "SELECT * FROM historico_participantes WHERE fk_part_id = ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM historico_participantes";
 
     private JDBCHistoricoParticipantes() {
@@ -103,7 +107,24 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
         }
         return historico;
     }
-
+    
+    @Override
+    public List getByParticipante(Integer id) {
+        List<HistoricoParticipante> historicos = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BYPARTI);
+            if (rs.next()) {
+                historicos = new ArrayList<HistoricoParticipante>();
+                do {
+                    HistoricoParticipante historico = (HistoricoParticipante) preencherEntidade(rs);
+                    historicos.add(historico);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCHistoricoParticipantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return historicos;
+    }
     @Override
     public void save(HistoricoParticipante historico) {
         if (historico.getId() == null || historico.getId() == 0) {
@@ -114,6 +135,7 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
                         historico.getCurso().getId(),
                         historico.getVinculo().getId(),
                         historico.getParticipante().getId(),
+                        historico.getSemestre(),
                         historico.getTipoIngresso().getId(),
                         historico.getProjeto().getId());
             } catch (SQLException ex) {
@@ -132,6 +154,8 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
                             historico.getCurso().getId(),
                             historico.getVinculo().getId(),
                             historico.getParticipante().getId(),
+                            historico.getSituacao().getId(),
+                            historico.getSemestre(),
                             historico.getTipoIngresso().getId(),
                             historico.getProjeto().getId(),
                             historico.getId());
@@ -145,16 +169,17 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
     @Override
     protected Object preencherEntidade(ResultSet rs) throws SQLException {
         HistoricoParticipante historico = new HistoricoParticipante();
-        historico.setId(Integer.SIZE);
+        historico.setId(rs.getInt("histp_id"));
         historico.setCargo(JDBCCargo.getInstance().getByPrimaryKey(rs.getInt("fk_carg_id")));
-        historico.setCurso(null);
-        historico.setEntrada(null);
-        historico.setMotivoSaida(null);
-        historico.setParticipante(null);
-        historico.setProjeto(null);
-        historico.setSaida(null);
-        historico.setTipoIngresso(null);
-        historico.setVinculo(null);
+        historico.setCurso(JDBCCurso.getInstance().getByPrimaryKey(rs.getInt("fk_cur_id")));
+        historico.setEntrada(rs.getTimestamp("histp_entrada"));
+        historico.setMotivoSaida(JDBCMotivoSaida.getInstance().getByPrimaryKey(rs.getInt("fk_mot_id")));
+        historico.setParticipante(JDBCParticipante.getInstance().getByPrimaryKey(rs.getInt("fk_part_id")));
+        historico.setSemestre(rs.getInt("histp_semestre"));
+        historico.setProjeto(JDBCProjeto.getInstance().getByPrimaryKey(rs.getInt("fk_proj_id")));
+        historico.setSaida(rs.getTimestamp("histp_saida"));
+        historico.setTipoIngresso(JDBCTipoIngresso.getInstance().getByPrimaryKey(rs.getInt("fk_ing_id")));
+        historico.setVinculo(JDBCVinculo.getInstance().getByPrimaryKey(rs.getInt("fk_vinc_id")));
 
         return historico;
     }

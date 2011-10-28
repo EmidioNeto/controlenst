@@ -4,3 +4,10 @@ build/
 /.svn/
 /nbproject/private/
 /.build/
+ConnectionHIBERNATE.java
+ConnectionJDBC.java
+src/java/nst/controlenst/persistence/dao/connection/
+/src/java/nst/controlenst/persistence/dao/connection/
+
+
+

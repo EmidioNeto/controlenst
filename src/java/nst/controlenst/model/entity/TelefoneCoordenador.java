@@ -90,6 +90,9 @@ public class TelefoneCoordenador {
         return hash;
     }
 
-    
+    @Override
+    public String toString(){
+        return this.getDdd() + this.getTelefone();
+    }    
     
 }

@@ -1,5 +1,5 @@
 package nst.controlenst.persistence.dao.connection;
-
+//reste
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -7,7 +7,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class ConnectionHIBERNATE {
 
     private static ConnectionHIBERNATE instancia = null;
-    
+
     private SessionFactory sessionFactory;
 
     private ConnectionHIBERNATE() {
@@ -18,8 +18,8 @@ public class ConnectionHIBERNATE {
                 .setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/teste")
                 .setProperty("hibernate.connection.username", "postgres")
                 .setProperty("hibernate.connection.password", "deliciadecoco")
-                .setProperty("hibernate.hbm2ddl.auto", "none") 
-                .setProperty("hibernate.show_sql", "true") 
+                .setProperty("hibernate.hbm2ddl.auto", "none")
+                .setProperty("hibernate.show_sql", "true")
                 .setProperty("hibernate.format_sql", "true")
                 .setProperty("hibernate.c3p0.acquire_increment", "1")
                 .setProperty("hibernate.c3p0.idle_period", "100")

@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.controller.business.IBusiness;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
+import nst.controlenst.enums.EnumDAO;
+import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.EmailCoordenador;
 import nst.controlenst.persistence.dao.factory.interfaces.EmailCoordenadorDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
@@ -26,7 +28,7 @@ public class EmailCoordenadorBO implements IBusiness {
 
     public EmailCoordenadorBO() {
         try {
-            this.emailCoordenadorDAO = FabricaDAO.getFactoryType().getEmailCoordenadorDAO();
+            this.emailCoordenadorDAO = (EmailCoordenadorDAO)FabricaDAO.getFactoryType(EnumTypeFactory.JDBC).getDAO(EnumDAO.EMAILCOORDENADORDAO);
         } catch (Exception ex) {
             Logger.getLogger(EmailCoordenadorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,4 +65,8 @@ public class EmailCoordenadorBO implements IBusiness {
         return (ArrayList<Object>) this.emailCoordenadorDAO.getAll();
     }
     
+    @Override
+    public Object obter(Integer id) throws BusinessExceptions {
+        return this.emailCoordenadorDAO.getByPrimaryKey(id);
+    }
 }

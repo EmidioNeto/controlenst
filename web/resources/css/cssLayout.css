@@ -1,24 +1,26 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
+    background-color: #FFF;
     color: white;
     padding: 5px;
-    margin: 0px 0px 10px 0px;
 }
 
 #bottom {
+    height: 80px;
     position: relative;
     background-color: #c2dfef;
     padding: 5px;
-    margin: 10px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
+    text-align: center;
 }
 
 #left {
     float: left;
     background-color: #ece3a5;
     padding: 5px;
-    width: 150px;
+    width: 80px;
+    min-height: 390px;
 }
 
 #right {
@@ -31,23 +33,21 @@
 .center_content {
     position: relative;
     background-color: #dddddd;
-    padding: 5px;
 }
 
 .left_content {
     background-color: #dddddd;
-    padding: 5px;
-    margin-left: 170px;
+    margin-left: 95px;
+    min-height: 400px;
 }
 
 .right_content {
     background-color: #dddddd;
-    padding: 5px;
     margin: 0px 170px 0px 170px;
 }
 
 #top a:link, #top a:visited {
-  color: white;
+  color: #000;
   font-weight : bold;
   text-decoration: none;
 }
@@ -57,5 +57,41 @@
   font-weight : bold;
   text-decoration : underline;
 }
-
-
+.menu-left-icon{
+    float: left;
+    position: relative;
+    margin-left: 15px;
+    margin-top: 40px;
+}
+#menu-left-icon-participantes{
+    background-image: url("/controle_nst/resources/imagens/participantes.png");    
+    background-repeat: no-repeat;
+    margin-left: 15px;
+    margin-top: 40px;
+    height: 48px;
+    width: 48px;
+}
+#menu-left-icon-back{
+    background-image: url("/controle_nst/resources/imagens/back.png");    
+    background-repeat: no-repeat;
+    margin-left: 15px;
+    margin-top: 40px;
+    height: 48px;
+    width: 48px;
+}
+#menu-left-icon-projetos{
+    background-image: url("/controle_nst/resources/imagens/projetos.png");    
+    background-repeat: no-repeat;
+    margin-left: 15px;
+    margin-top: 40px;
+    height: 48px;
+    width: 48px;
+}
+#menu-left-icon-relatorio{
+    background-image: url("/controle_nst/resources/imagens/relatorios.png");    
+    background-repeat: no-repeat;
+    margin-left: 15px;
+    margin-top: 40px;
+    height: 48px;
+    width: 48px;
+}

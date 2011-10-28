@@ -64,4 +64,9 @@ public class MotivoSaida implements Serializable {
         hash = 37 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
         return hash;
     }
+    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }    
 }

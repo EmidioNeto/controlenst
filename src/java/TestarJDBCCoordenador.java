@@ -1,7 +1,14 @@
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import nst.controlenst.controller.business.impl.ProjetoBO;
 import nst.controlenst.model.entity.Coordenador;
 import nst.controlenst.model.entity.EmailCoordenador;
+import nst.controlenst.model.entity.Participante;
+import nst.controlenst.model.entity.Projeto;
+import nst.controlenst.model.entity.Situacao;
+import nst.controlenst.model.entity.Tipo;
 import nst.controlenst.persistence.dao.factory.impl.JDBCFactory;
 import nst.controlenst.persistence.dao.factory.interfaces.CoordenadorDAO;
 import nst.controlenst.persistence.dao.factory.interfaces.EmailCoordenadorDAO;
@@ -19,6 +26,7 @@ import nst.controlenst.persistence.dao.util.FabricaDAO;
  */
 public class TestarJDBCCoordenador {
     public static void main(String[] args) throws Exception {
+/*
         //Primeiro seta o tipo de Persistencia
         //FabricaDAO.setFactoryType(new JDBCFactory());
         
@@ -56,6 +64,32 @@ public class TestarJDBCCoordenador {
         //Isso aqui nao e recomendado fazer poque se ouver a necessidade de trocar o tipo de persistencia isso vai dar pau.
         EmailCoordenadorDAO emailDAO = JDBCEmailCoordenadores.getInstance();
         emailDAO.save(email);
+        */
+        
+        Date c = new Date(2011,9, 1);
+        Date e = new Date(2011, 10, 1);
+        Date ep = new Date(2011, 11, 1);
+        Date i = new Date(2011,9, 2);
+        
+        Projeto p = new Projeto();
+        
+        p.setNome("Portal TecJorge");
+        p.setDescricao("Projeto do Portal TecJorge");
+        p.setIdentificador("Portal");
+        
+        p.setDataCadastro(new Timestamp(c.getTime()));        
+        p.setDataEncerramento(new Timestamp(e.getTime()));
+        p.setDataEncerramentoPrevisto(new Timestamp(ep.getTime()));
+        p.setDataInicio(new Timestamp(i.getTime()));        
+        p.setSituacao(new Situacao(4, "Em elaboração"));
+        p.setTipo(new Tipo(1, "Desenvolvimento"));
+        
+        ProjetoBO proBO = new ProjetoBO();
+        
+        proBO.save(p);
+        
+        
+        
         
         
     }

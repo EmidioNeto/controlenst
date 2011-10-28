@@ -19,6 +19,8 @@ public class Cargo implements Serializable {
     private String descricao;
    
     public Cargo() {
+        this.id = 1;
+        this.descricao = "Desenvolvedor";
     }
 
     public String getDescricao() {
@@ -63,10 +65,8 @@ public class Cargo implements Serializable {
         return hash;
     }
     
-    
-    
-    
-
-    
+    @Override
+    public String toString(){
+        return this.getDescricao();
+    }  
 }
-
