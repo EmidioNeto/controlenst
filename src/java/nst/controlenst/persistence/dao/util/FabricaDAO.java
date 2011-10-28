@@ -29,12 +29,4 @@ public class FabricaDAO {
             
         
     }
-
-<<<<<<< HEAD
-    //Colocar o argumento como ENUM
-    public static void setFactoryType(DAOFactory factory) {
-        FabricaDAO.factory = factory;
-    }
-=======
->>>>>>> emidio/master
 }

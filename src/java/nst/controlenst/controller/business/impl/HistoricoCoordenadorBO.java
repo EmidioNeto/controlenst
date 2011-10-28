@@ -70,12 +70,9 @@ public class HistoricoCoordenadorBO implements IBusiness {
     public ArrayList<Object> listar() throws BusinessExceptions {
         return (ArrayList<Object>) this.historicoCoordenadorDAO.getAll();
     }
-<<<<<<< HEAD
-=======
     
     @Override
     public Object obter(Integer id) throws BusinessExceptions {
         return this.historicoCoordenadorDAO.getByPrimaryKey(id);
     }
->>>>>>> emidio/master
 }
