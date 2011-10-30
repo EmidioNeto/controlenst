@@ -17,29 +17,97 @@
 
                     <p:panel header="Listar Projetos">  
                         <h:panelGrid columns="4" id="grid">  
-                                <p:commandButton value="Pesquisar" update="projetos msgs @parent"  
-                                                action="andksa" >  
-                                </p:commandButton>
-                           
-                                <p:inputText id="txt_title"   
-                                                value="asd" required="true"/>  
-
                                 <p:commandButton value="Incluir Projeto" ajax="false" action="novo_projeto" />
-
-                                <p:commandButton value="Editar" action="as" />
                         </h:panelGrid>  
                     </p:panel>  
 
                     <p:ajaxStatus style="width:16px;height:16px;">  
                         
                         <f:facet name="start">  
-                            <h:graphicImage value="../design/ajaxloading.gif" />  
+                            <h:graphicImage value="/resources/imagens/ajaxloading.gif" />  
                         </f:facet>  
 
                         <f:facet name="complete">  
                             <h:outputText value="" />  
                         </f:facet>  
-                    </p:ajaxStatus>    
+                    </p:ajaxStatus>  
+
+                    <p:outputPanel id="projetos">  
+                        <p:dataTable value="#{ProjetoBean.listaProjetos}" var="projeto" emptyMessage="Não há Projetos cadastrados." paginator="true" rows="10"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="ID" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.id}" />  
+                            </p:column>
+                            
+                            <p:column filterBy="#{projeto.nome}">  
+                                <f:facet name="header">  
+                                    <h:outputText value="Nome" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.nome}" />  
+                            </p:column>
+                            
+                            <p:column >  
+                                <f:facet name="header">  
+                                    <h:outputText value="Tipo" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.tipo}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Status" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.situacao}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Data Inicio" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.dataInicio}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Data Prev Fim" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.dataEncerramentoPrevisto}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Data Fim" />  
+                                </f:facet>  
+                                <h:outputText value="#{projeto.dataEncerramento}" />  
+                            </p:column>
+                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Coordenador" />  
+                                </f:facet>  
+
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">  
+                                    <h:outputText value="Editar" />  
+                                </f:facet>
+                                <p:commandButton action="#{ProjetoBean.editar(projeto.id)}" ajax="false" value="Editar"/>
+                            </p:column> 
+                            
+                            <p:column>
+                                <f:facet name="header">  
+                                    <h:outputText value="Excluir" />  
+                                </f:facet>
+                                <p:commandButton action="#{ProjetoBean.deletar(projeto.id)}" ajax="false" value="Excluir"/>
+                            </p:column>    
+                        </p:dataTable>  
+                    </p:outputPanel>     
 
                 </h:form>  
             </ui:define>

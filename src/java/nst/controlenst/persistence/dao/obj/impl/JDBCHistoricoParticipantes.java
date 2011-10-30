@@ -112,7 +112,7 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
     public List getByParticipante(Integer id) {
         List<HistoricoParticipante> historicos = null;
         try {
-            ResultSet rs = executarQuery(SQL_SEL_BYPARTI);
+            ResultSet rs = executarQuery(SQL_SEL_BYPARTI,id);
             if (rs.next()) {
                 historicos = new ArrayList<HistoricoParticipante>();
                 do {

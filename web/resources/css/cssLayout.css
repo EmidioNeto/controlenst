@@ -20,7 +20,7 @@
     background-color: #ece3a5;
     padding: 5px;
     width: 80px;
-    min-height: 390px;
+    min-height: 395px;
 }
 
 #right {
@@ -38,7 +38,7 @@
 .left_content {
     background-color: #dddddd;
     margin-left: 95px;
-    min-height: 400px;
+    min-height: 405px;
 }
 
 .right_content {
@@ -94,4 +94,8 @@
     margin-top: 40px;
     height: 48px;
     width: 48px;
+}
+#projetos{
+    height: 122px;
+    overflow-x: auto;
 }

@@ -14,18 +14,17 @@ import java.sql.Timestamp;
 public class HistoricoParticipante {
     
     private Integer id;
+    private Participante participante;    
+    private Situacao situacao;    
+    private Curso curso;
+    private Integer semestre;
+    private TipoIngresso tipoIngresso;
+    private Vinculo vinculo;
+    private Cargo cargo;
+    private Projeto projeto;
     private Timestamp entrada;
     private Timestamp saida;
     private MotivoSaida motivoSaida;
-    private Cargo cargo;
-    private Curso curso;
-    private Vinculo vinculo;
-    private Participante participante;
-    private TipoIngresso tipoIngresso;
-    private Projeto projeto;
-    private Situacao situacao;
-    private Integer semestre;
-
     public HistoricoParticipante() {
     }
 

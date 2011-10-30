@@ -28,6 +28,7 @@ public abstract class GenericJDBCDAO {
             ps.setObject(i + 1, params[i]);
         }
 
+        System.out.println("----------/----------/----------/----------/----------/----------"+ps.toString()+"----------/----------/----------/----------/----------/----------");
         return ps.executeQuery();
     }
 

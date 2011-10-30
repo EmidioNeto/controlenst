@@ -259,6 +259,7 @@ public class ParticipanteBEAN implements Serializable {
         }
         return listaPaticipantes;
     }
+    //Carrega os dados do participante
     public String editar(Integer id){
         try {
             this.participante = (Participante) this.participanteBO.obter(id);
@@ -267,7 +268,7 @@ public class ParticipanteBEAN implements Serializable {
         }
         
         try {
-            this.historicoParticipante = (HistoricoParticipante) this.historicoParticipanteBO.obterPorParticipante(this.participante);
+            this.listaHistoricoPaticipante=this.historicoParticipanteBO.obterPorParticipante(this.participante);
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ParticipanteBEAN.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -282,14 +283,14 @@ public class ParticipanteBEAN implements Serializable {
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ParticipanteBEAN.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        /*
         this.id_cargo = this.historicoParticipante.getCargo() !=null ? this.historicoParticipante.getCargo().getId() : 0;
         this.id_curso = this.historicoParticipante.getCurso() !=null ? this.historicoParticipante.getCurso().getId() : 0;
         this.id_motivo_saida= this.historicoParticipante.getMotivoSaida()!=null ? this.historicoParticipante.getMotivoSaida().getId() : 0;
         this.id_projeto= this.historicoParticipante.getProjeto()!=null ? this.historicoParticipante.getProjeto().getId() : 0;
         this.id_tipo_ingresso = this.historicoParticipante.getTipoIngresso()!=null ? this.historicoParticipante.getTipoIngresso().getId() : 0;
         this.id_vinculo= this.historicoParticipante.getVinculo()!=null ? this.historicoParticipante.getVinculo().getId() : 0;
-        
+        */
         return "editar_participante";
     }
     
@@ -304,6 +305,7 @@ public class ParticipanteBEAN implements Serializable {
         
         FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_ERROR, "", "Deletado com sucesso!");
     } 
+    //Inclui um novo registro no banco para este participante
     public String editarParticipante(){
         try {
             this.participanteBO.save(this.participante);

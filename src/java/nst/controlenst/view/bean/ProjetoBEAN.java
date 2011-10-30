@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -27,6 +28,7 @@ import nst.controlenst.model.entity.Participante;
 import nst.controlenst.model.entity.Projeto;
 import nst.controlenst.model.entity.Situacao;
 import nst.controlenst.model.entity.Tipo;
+import nst.controlenst.view.bean.facesutil.FacesUtil;
 
 /**
  *
@@ -82,13 +84,6 @@ public class ProjetoBEAN implements Serializable {
     }
 
     public ArrayList<Object> getListaSituacao() {
-        if(this.listaSituacao.size()<1){            
-            try {
-                this.listaSituacao = situacaoBO.listar();                       
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         return listaSituacao;
     }
 
@@ -105,6 +100,16 @@ public class ProjetoBEAN implements Serializable {
     }
 
     private void initCadastro(){
+            try {
+                this.listaSituacao = situacaoBO.listar();                       
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                this.listaProjetos = projetoBO.listar();
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
             List<Object> tipos;
             try {
                 tipos = tipoBO.listar();                
@@ -234,11 +239,6 @@ public class ProjetoBEAN implements Serializable {
     }
     
     public List<Object> getListaProjetos() {
-        try {
-            this.listaProjetos = projetoBO.listar();
-        } catch (BusinessExceptions ex) {
-            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return listaProjetos;
     }    
     
@@ -331,8 +331,27 @@ public class ProjetoBEAN implements Serializable {
         System.out.println(" ---------- Chamou adicionarAprojeto! ----------");
         try {
             Participante p = (Participante)this.participanteBO.obter(this.id_participante);
+            if(listaParticipanteProjeto.contains(p)){
+                FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante já adicionado!", "Participante já adicionado!");
+            }else{
+                listaParticipanteProjeto.add(p);
+                FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante adicionado", "Participante adicionado!");
+            }
             
-            listaParticipanteProjeto.add(p);
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void removerDoprojeto(){
+        System.out.println(" ---------- Chamou removerDoprojeto! ----------");
+        try {
+            Participante p = (Participante)this.participanteBO.obter(this.id_participante);
+            if(listaParticipanteProjeto.contains(p)){
+                listaParticipanteProjeto.remove(p);
+                FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante removido!", "Participante removido!");
+            }
+            
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
         }

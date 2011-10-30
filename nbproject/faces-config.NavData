@@ -2,14 +2,17 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
+        <Node id="restrito/listParticipantes.xhtml" x="643" y="340" zoom="true"/>
+        <Node id="restrito/listProjetos.xhtml" x="-136" y="343" zoom="true"/>
+        <Node id="restrito/editParticipante.xhtml" x="491" y="468" zoom="true"/>
+        <Node id="template.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="teste.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="publico/home.xhtml" x="900" y="150" zoom="true"/>
         <Node id="restrito/relatorios.xhtml" x="-85" y="199" zoom="true"/>
         <Node id="restrito/newProjeto.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="restrito/listProjetos.xhtml" x="-136" y="343" zoom="true"/>
-        <Node id="restrito/listParticipantes.xhtml" x="643" y="340" zoom="true"/>
         <Node id="restrito/newParticipante.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="restrito/editParticipante.xhtml" x="491" y="468" zoom="true"/>
-        <Node id="publico/login.xhtml" x="650" y="150" zoom="true"/>
         <Node id="index.xhtml" x="600" y="224" zoom="true"/>
+        <Node id="publico/login.xhtml" x="650" y="150" zoom="true"/>
         <Node id="template/template.xhtml" x="150" y="150" zoom="true"/>
         <Node id="home.xhtml" x="150" y="450" zoom="true"/>
     </Scope>

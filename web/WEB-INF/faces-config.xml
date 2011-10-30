@@ -125,6 +125,17 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/restrito/editParticipante.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadastroSucesso</from-outcome>
+            <to-view-id>/restrito/listParticipantes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadastroErro</from-outcome>
+            <to-view-id>/restrito/editParticipante.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/restrito/listParticipantes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>editar_participante</from-outcome>
