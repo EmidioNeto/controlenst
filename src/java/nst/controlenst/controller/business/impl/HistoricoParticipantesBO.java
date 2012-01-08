@@ -79,13 +79,6 @@ public class HistoricoParticipantesBO implements IBusiness {
                 FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_ERROR, "", "Não é possível criar ou alterar um registro de Historico sem um Projeto vinculado.");
                 throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem um Projeto vinculado.");
             }
-            /*
-                if (this.historicoParticipante.getSituacao()== null) {
-                    ConnectionJDBC.doRollback();
-                    FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_ERROR, "", "Não é possível criar ou alterar um registro de Historico sem uma Situação vinculada.");
-                    throw new BusinessExceptions("Não é possível criar ou alterar um registro de Historico sem uma Situação vinculada.");
-                }
-             */
         }else{
             if(this.historicoParticipante.getMotivoSaida() == null || this.historicoParticipante.getSaida() == null){
                 ConnectionJDBC.doRollback();

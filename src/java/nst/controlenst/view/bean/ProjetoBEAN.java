@@ -18,12 +18,14 @@ import javax.faces.model.SelectItem;
 import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.controller.business.impl.CargoBO;
 import nst.controlenst.controller.business.impl.CoordenadorBO;
+import nst.controlenst.controller.business.impl.HistoricoParticipantesBO;
 import nst.controlenst.controller.business.impl.ParticipanteBO;
 import nst.controlenst.controller.business.impl.ProjetoBO;
 import nst.controlenst.controller.business.impl.SituacaoBO;
 import nst.controlenst.controller.business.impl.TipoBO;
 import nst.controlenst.model.entity.Cargo;
 import nst.controlenst.model.entity.Coordenador;
+import nst.controlenst.model.entity.HistoricoParticipante;
 import nst.controlenst.model.entity.Participante;
 import nst.controlenst.model.entity.Projeto;
 import nst.controlenst.model.entity.Situacao;
@@ -34,61 +36,77 @@ import nst.controlenst.view.bean.facesutil.FacesUtil;
  *
  * @author emidio
  */
-@ManagedBean(name="ProjetoBean")
+@ManagedBean(name = "ProjetoBean")
 @SessionScoped
 public class ProjetoBEAN implements Serializable {
-    
-    Projeto projeto = new Projeto();
-    
-    ProjetoBO projetoBO = new ProjetoBO();
-    SituacaoBO situacaoBO = new SituacaoBO();
-    TipoBO tipoBO = new TipoBO();
-    CoordenadorBO coordenadorBO = new CoordenadorBO();
-    ParticipanteBO participanteBO = new ParticipanteBO();
-    CargoBO cargoBO = new CargoBO();
-    
-    ArrayList<Object> listaSituacao = new ArrayList<Object>();
-    
-    ArrayList<SelectItem> listaTipo = new ArrayList<SelectItem>();            
 
-    ArrayList<SelectItem> listaCoordenador = new ArrayList<SelectItem>();            
-    
-    ArrayList<SelectItem> listaCargo = new ArrayList<SelectItem>();            
-    
-    ArrayList<SelectItem> listaParticipante = new ArrayList<SelectItem>();            
-    
-    ArrayList<SelectItem> listaStatus = new ArrayList<SelectItem>();            
-    
+    Projeto projeto;
+    Projeto projetoSelecionado;
+    ProjetoBO projetoBO;
+    SituacaoBO situacaoBO;
+    TipoBO tipoBO;
+    CoordenadorBO coordenadorBO;
+    ParticipanteBO participanteBO;
+    HistoricoParticipantesBO historicoParticipanteBO;
+    CargoBO cargoBO;
+    ArrayList<Object> listaSituacao;
+    ArrayList<SelectItem> listaTipo;
+    ArrayList<SelectItem> listaCoordenador;
+    ArrayList<SelectItem> listaCargo;
+    ArrayList<SelectItem> listaParticipante;
+    ArrayList<SelectItem> listaStatus;
     Date data_cadastro = new Date();
     Date data_inicio;
     Date data_encer_previsto;
     Date data_encerramento;
-    
     List<Object> listaProjetos;
-    
     Integer id_tipo_projeto;
-    
     Integer id_status;
-    
     Integer id_coordenador;
-    
     Integer id_participante;
-    
     Integer id_cargo;
-    
-    ArrayList<Object> listaParticipanteProjeto = new ArrayList<Object>();
-    
+    HistoricoParticipante historicoParticipante = new HistoricoParticipante();
+    Participante participante = new Participante();
+    Cargo cargo = new Cargo();
+    List listaParticipanteProjeto = new ArrayList<HistoricoParticipante>();
+
     /** Creates a new instance of ParticipanteBEAN */
     public ProjetoBEAN() {
-        this.initCadastro();
+        this.projeto = new Projeto();
+        this.projetoSelecionado = new Projeto();
+        this.projetoBO = new ProjetoBO();
+        this.situacaoBO = new SituacaoBO();
+        this.tipoBO = new TipoBO();
+        this.coordenadorBO = new CoordenadorBO();
+        this.participanteBO = new ParticipanteBO();
+        this.historicoParticipanteBO = new HistoricoParticipantesBO();
+        this.cargoBO = new CargoBO();
     }
 
     public ArrayList<Object> getListaSituacao() {
+        if(this.listaSituacao==null || this.listaSituacao.size()<1){
+            try {
+                this.listaSituacao = situacaoBO.listar();                       
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listaSituacao;
     }
 
-    public void setListaSituacao(ArrayList<Object> listaSituacao) {
-        this.listaSituacao = listaSituacao;
+    public Integer getId_cargo() {
+        return id_cargo;
+    }
+    public void setId_cargo(Integer id_cargo) {
+        this.id_cargo = id_cargo;
+    }
+
+    public Integer getId_participante() {
+        return id_participante;
+    }
+
+    public void setId_participante(Integer id_participante) {
+        this.id_participante = id_participante;
     }
 
     public Projeto getProjeto() {
@@ -99,17 +117,11 @@ public class ProjetoBEAN implements Serializable {
         this.projeto = projeto;
     }
 
+
+    public Cargo getCargo() {
+        return cargo;
+    }
     private void initCadastro(){
-            try {
-                this.listaSituacao = situacaoBO.listar();                       
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                this.listaProjetos = projetoBO.listar();
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
             List<Object> tipos;
             try {
                 tipos = tipoBO.listar();                
@@ -169,12 +181,9 @@ public class ProjetoBEAN implements Serializable {
             
             
     }
-    public ArrayList<SelectItem> getListaTipo() {
-        return listaTipo;
-    }
-
-    public void setListaTipo(ArrayList<SelectItem> listaTipo) {
-        this.listaTipo = listaTipo;
+    
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
     public Date getData_cadastro() {
@@ -208,41 +217,22 @@ public class ProjetoBEAN implements Serializable {
     public void setData_inicio(Date data_inicio) {
         this.data_inicio = data_inicio;
     }
-    
-    public void inserirProjeto(){
-        this.projeto.setDataCadastro(converterDateToTimeStamp(this.data_cadastro));
-        this.projeto.setDataEncerramentoPrevisto(converterDateToTimeStamp(this.data_encer_previsto));
-        this.projeto.setDataEncerramento(converterDateToTimeStamp(this.data_encerramento));
-        this.projeto.setDataInicio(converterDateToTimeStamp(this.data_inicio));
-        
-        try {
-            this.projeto.setSituacao((Situacao)situacaoBO.obter(id_status));
-        } catch (BusinessExceptions ex) {
-            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            this.projeto.setTipo((Tipo)tipoBO.obter(id_tipo_projeto));
-        } catch (BusinessExceptions ex) {
-            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-        
-        try{
-            this.projetoBO.save(projeto);
-        } catch (BusinessExceptions ex) {
-            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public Participante getParticipante() {
+        return participante;
     }
-    
-    public void setListaProjetos(List<Object> listaProjetos) {
-        this.listaProjetos = listaProjetos;
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
-    
     public List<Object> getListaProjetos() {
+        try {
+            this.listaProjetos = projetoBO.listar();
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return listaProjetos;
     }    
-    
-
     public Integer getId_status() {
         return id_status;
     }
@@ -258,17 +248,9 @@ public class ProjetoBEAN implements Serializable {
     public void setId_tipo_projeto(Integer id_tipo_projeto) {
         this.id_tipo_projeto = id_tipo_projeto;
     }
-    
-    private Timestamp converterDateToTimeStamp(Date data){
+
+    private Timestamp converterDateToTimeStamp(Date data) {
         return new Timestamp(data.getTime());
-    }
-
-    public Integer getId_cargo() {
-        return id_cargo;
-    }
-
-    public void setId_cargo(Integer id_cargo) {
-        this.id_cargo = id_cargo;
     }
 
     public Integer getId_coordenador() {
@@ -279,23 +261,36 @@ public class ProjetoBEAN implements Serializable {
         this.id_coordenador = id_coordenador;
     }
 
-    public Integer getId_participante() {
-        return id_participante;
+    public Projeto getProjetoSelecionado() {
+        return projetoSelecionado;
     }
 
-    public void setId_participante(Integer id_participante) {
-        this.id_participante = id_participante;
+    public void setProjetoSelecionado(Projeto projetoSelecionado) {
+        this.projetoSelecionado = projetoSelecionado;
     }
 
-    public ArrayList<Object> getListaParticipanteProjeto() {
+    public List getListaParticipanteProjeto() {
         return listaParticipanteProjeto;
     }
 
-    public void setListaParticipanteProjeto(ArrayList<Object> listaParticipanteProjeto) {
+    public void setListaParticipanteProjeto(List listaParticipanteProjeto) {
         this.listaParticipanteProjeto = listaParticipanteProjeto;
     }
 
     public ArrayList<SelectItem> getListaCargo() {
+        if(this.listaCargo == null){
+            List<Object> listCargo;
+            this.listaCargo = new ArrayList<SelectItem>();
+            try {
+                listCargo = cargoBO.listar();
+                for (Object cargo : listCargo) {
+                    Cargo c = (Cargo) cargo;
+                    this.listaCargo.add(new SelectItem(c.getId(), c.getDescricao()));
+                }
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listaCargo;
     }
 
@@ -304,6 +299,19 @@ public class ProjetoBEAN implements Serializable {
     }
 
     public ArrayList<SelectItem> getListaCoordenador() {
+        if(this.listaCoordenador ==  null){
+            List<Object> listCoordenador;
+            this.listaCoordenador = new ArrayList<SelectItem>();
+            try {
+                listCoordenador = coordenadorBO.listar();
+                for (Object coordenador : listCoordenador) {
+                    Coordenador c = (Coordenador) coordenador;
+                    this.listaCoordenador.add(new SelectItem(c.getId(), c.getNome()));
+                }
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listaCoordenador;
     }
 
@@ -312,6 +320,19 @@ public class ProjetoBEAN implements Serializable {
     }
 
     public ArrayList<SelectItem> getListaParticipante() {
+        if(this.listaParticipante==null){
+            List<Object> listParticipante;
+            this.listaParticipante = new ArrayList<SelectItem>();
+            try {
+                listParticipante = participanteBO.listar();
+                for (Object participante : listParticipante) {
+                    Participante p = (Participante) participante;
+                    this.listaParticipante.add(new SelectItem(p.getId(), p.getNome()));
+                }
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listaParticipante;
     }
 
@@ -320,40 +341,198 @@ public class ProjetoBEAN implements Serializable {
     }
 
     public ArrayList<SelectItem> getListaStatus() {
+        if(this.listaStatus == null){
+            List<Object> listStatus;
+            this.listaStatus = new ArrayList<SelectItem>();
+            try {
+                listStatus = situacaoBO.listar();
+                for (Object status : listStatus) {
+                    Situacao s = (Situacao) status;
+                    this.listaStatus.add(new SelectItem(s.getId(), s.getDescricao()));
+                }
+            } catch (BusinessExceptions ex) {
+                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listaStatus;
     }
 
     public void setListaStatus(ArrayList<SelectItem> listaStatus) {
         this.listaStatus = listaStatus;
     }
+
+    public void setListaProjetos(List<Object> listaProjetos) {
+        this.listaProjetos = listaProjetos;
+    }
+
     
-    public void adicionarAprojeto(){
-        System.out.println(" ---------- Chamou adicionarAprojeto! ----------");
+
+    public ArrayList<SelectItem> getListaTipo() {
+        if(this.listaTipo == null){
+            this.listaTipo = new ArrayList<SelectItem>();
+                List<Object> tipos;
+                this.listaTipo = new ArrayList<SelectItem>();
+                try {
+                    tipos = tipoBO.listar();
+                    for (Object tipo : tipos) {
+                        Tipo t = (Tipo) tipo;
+                        this.listaTipo.add(new SelectItem(t.getId(), t.getDescricao()));
+                    }
+                } catch (BusinessExceptions ex) {
+                    Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        return listaTipo;
+    }
+
+    public void setListaTipo(ArrayList<SelectItem> listaTipo) {
+        this.listaTipo = listaTipo;
+    }
+
+    public void setListaSituacao(ArrayList<Object> listaSituacao) {
+        this.listaSituacao = listaSituacao;
+    }
+
+    public void deletar(Projeto projeto) {
         try {
-            Participante p = (Participante)this.participanteBO.obter(this.id_participante);
-            if(listaParticipanteProjeto.contains(p)){
+            this.projetoBO.excluir(projeto);
+            this.listaProjetos.remove(projeto);
+        } catch (BusinessExceptions ex) {
+            FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_ERROR, "", "Não foi possível deletar este registro!");
+            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_ERROR, "", "Deletado com sucesso!");
+    }
+
+    public void adicionarAprojeto() {
+        HistoricoParticipante historico = new HistoricoParticipante();
+        try {
+            this.participante = (Participante) this.participanteBO.obter(this.id_participante);
+            this.cargo = (Cargo) this.cargoBO.obter(this.id_cargo);
+
+            if (participanteJaAdicionado(this.participante)) {
                 FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante já adicionado!", "Participante já adicionado!");
-            }else{
-                listaParticipanteProjeto.add(p);
+            } else {
+                historico.setParticipante(this.participante);
+                historico.setCargo(this.cargo);
+                this.listaParticipanteProjeto.add(historico);
                 FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante adicionado", "Participante adicionado!");
             }
-            
+
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void removerDoprojeto(){
-        System.out.println(" ---------- Chamou removerDoprojeto! ----------");
+
+    public void removerDoprojeto(HistoricoParticipante historico) {
         try {
-            Participante p = (Participante)this.participanteBO.obter(this.id_participante);
-            if(listaParticipanteProjeto.contains(p)){
-                listaParticipanteProjeto.remove(p);
+            this.participante = (Participante) this.participanteBO.obter(this.participante.getId());
+            if (participanteJaAdicionado(this.participante)) {
+                this.listaParticipanteProjeto.remove(historico);
                 FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "Participante removido!", "Participante removido!");
             }
-            
+
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public boolean participanteJaAdicionado(Participante p) {
+        boolean existe = false;
+        for (Object h : this.listaParticipanteProjeto) {
+            HistoricoParticipante historico = (HistoricoParticipante) h;
+            if (historico.getParticipante().getMatricula().equals(p.getMatricula())) {
+                existe = true;
+            }
+        }
+        return existe;
+    }
+
+    public String editar(Projeto projeto) {
+        this.projeto = projeto;
+        this.data_cadastro = new Date(this.projeto.getDataCadastro().getTime());
+        if(this.projeto.getDataInicio() != null)
+            this.data_inicio = new Date(this.projeto.getDataInicio().getTime());
+        if(this.projeto.getDataEncerramentoPrevisto() != null)
+            this.data_encer_previsto = new Date(this.projeto.getDataEncerramentoPrevisto().getTime());
+        if(this.projeto.getDataEncerramento() != null)
+            this.data_encerramento = new Date(this.projeto.getDataEncerramento().getTime());
+        return "editar_projeto";
+        
+    }
+
+    public String editarProjeto() {
+        try {
+            
+            if(this.data_cadastro!=null){
+                this.projeto.setDataCadastro(converterDateToTimeStamp(this.data_cadastro));
+            }
+            
+            if(this.data_encer_previsto!=null){
+                this.projeto.setDataEncerramentoPrevisto(converterDateToTimeStamp(this.data_encer_previsto));
+            }
+            
+            if(this.data_encerramento!=null){
+                this.projeto.setDataEncerramento(converterDateToTimeStamp(this.data_encerramento));
+            }
+            
+            if(this.data_inicio!=null){
+                this.projeto.setDataInicio(converterDateToTimeStamp(this.data_inicio));
+            }
+            this.projetoBO.save(this.projeto);
+            this.projetoSelecionado = new Projeto();
+            this.historicoParticipante = new HistoricoParticipante();
+
+            Participante p = (Participante)this.participanteBO.obter(this.id_participante);
+            
+            listaParticipanteProjeto.add(p);
+            return "cadastroSucesso";
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "", ex.getMessage());
+            return "cadastroErro";
+        }
+    }
+
+    public String inserirProjeto() {
+        try {
+            this.projeto.setDataCadastro(converterDateToTimeStamp(new Date()));
+
+            if (this.data_encer_previsto != null) {
+                this.projeto.setDataEncerramentoPrevisto(converterDateToTimeStamp(this.data_encer_previsto));
+            }
+
+            if (this.data_encerramento != null) {
+                this.projeto.setDataEncerramento(converterDateToTimeStamp(this.data_encerramento));
+            }
+
+            if (this.data_inicio != null) {
+                this.projeto.setDataInicio(converterDateToTimeStamp(this.data_inicio));
+            }
+            this.projeto.setSituacao((Situacao) situacaoBO.obter(id_status));
+            this.projeto.setTipo((Tipo) tipoBO.obter(id_tipo_projeto));
+            this.projeto.setCoordenador((Coordenador) coordenadorBO.obter(id_coordenador));
+            this.projetoBO.save(projeto);
+            this.projeto = (Projeto) this.projetoBO.obterPorIdentificador(projeto.getIdentificador());
+            
+            this.resetarValores();
+            return "cadastroSucesso";
+        } catch (BusinessExceptions ex) {
+            Logger.getLogger(ParticipanteBEAN.class.getName()).log(Level.SEVERE, null, ex);
+            FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "", ex.getMessage());
+            return "cadastroErro";
+        }
+        
+    }
+    
+    public void resetarValores(){
+        this.data_encer_previsto = null;
+        this.data_inicio = null;
+        this.data_encerramento = null;
+        this.id_tipo_projeto = 0;
+        this.id_status = 0;
+        this.id_coordenador = 0;
+    }
+    
 }

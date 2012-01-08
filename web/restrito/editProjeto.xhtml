@@ -13,57 +13,58 @@
             <ui:define name="content">
                 <div id="tudo">
                     <p:growl id="msgs" />
-                    <h:form id="form">  
-
-
-
+                    <h:form id="form">
                         <p:panel header="Novo Projeto">  
                             <h:panelGrid columns="4" id="grid">
                                 <h:outputLabel value="Nome*" />                           
                                 <p:inputText id="edit_txt_nome" value="#{ProjetoBean.projeto.nome}" required="true"/>
 
                                 <h:outputLabel value="Tipo de Projeto*" />                           
-                                <h:selectOneMenu value="#{ProjetoBean.id_tipo_projeto}">
+                                <h:selectOneMenu value="#{ProjetoBean.projeto.tipo.id}">
                                     <f:selectItem itemValue="" itemLabel="Selecione..." />
                                     <f:selectItems value="#{ProjetoBean.listaTipo}" />
                                 </h:selectOneMenu>
 
 
                                 <h:outputLabel value="Status*" />                           
-                                <h:selectOneMenu id="selectStatus" value="#{ProjetoBean.id_status}">
+                                <h:selectOneMenu id="selectStatus" value="#{ProjetoBean.projeto.situacao.id}">
                                     <f:selectItem itemValue="" itemLabel="Selecione..." />
-                                    <f:selectItems value="#{ProjetoBean.listaSituacao}" />
+                                    <f:selectItems value="#{ProjetoBean.listaStatus}" />
                                 </h:selectOneMenu>
 
 
                                 <h:outputLabel value="Identificador*" />                           
-                                <p:inputText id="edit_txt_identificador" value="#{ProjetoBean.projeto.identificador}" required="true"/>
+                                <p:inputText id="edit_txt_identificador" value="#{ProjetoBean.projeto.identificador}" maxlength="10" required="true"/>
 
                                 <h:outputLabel value="Descrição" />
                                 <p:inputTextarea id="edit_txt_descricao" rows="4" value="#{ProjetoBean.projeto.descricao}" required="true"/>                            
 
 
                                 <h:outputLabel value="Data Inicio*" />                           
-                                <p:calendar value="#{ProjetoBean.data_inicio}" showOn="button" />
+                                <p:calendar value="#{ProjetoBean.data_inicio}" pattern="dd/MM/yyyy" showOn="button" />
 
                                 <h:outputLabel value="Previsão de Termino" />
-                                <p:calendar value="#{ProjetoBean.data_encer_previsto}" showOn="button" />
+                                <p:calendar value="#{ProjetoBean.data_encer_previsto}" pattern="dd/MM/yyyy"  showOn="button" />
 
                                 <h:outputLabel value="Data Fim" />   
-                                <p:calendar value="#{ProjetoBean.data_encerramento}" showOn="button" />
+                                <p:calendar value="#{ProjetoBean.data_encerramento}" pattern="dd/MM/yyyy" showOn="button" />
 
 
                                 <h:outputLabel value="Coordenador*" />                           
-                                <h:selectOneMenu id="selectCoordenador" value="#{ProjetoBean.id_coordenador}">
+                                <h:selectOneMenu id="selectCoordenador" value="#{ProjetoBean.projeto.coordenador.id}">
                                     <f:selectItem itemValue="" itemLabel="Selecione..." />
                                     <f:selectItems value="#{ProjetoBean.listaCoordenador}" />
                                 </h:selectOneMenu>
+
                                 <h:outputLabel value="     " />
                                 <h:outputLabel value="     " />
-                                <p:commandButton ajax="false" value="Incluir Projeto" action="#{ProjetoBean.inserirProjeto()}" style="float: right;"/>
+                                
+                                <p:commandButton ajax="false" value="Incluir Projeto" action="#{ProjetoBean.editarProjeto()}" style="float: right;"/>
                             </h:panelGrid>  
-                        </p:panel>
-                    </h:form>
+                            
+                        </p:panel>  
+
+                    </h:form>  
                 </div>
             </ui:define>
 

@@ -12,6 +12,8 @@ import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.enums.EnumDAO;
 import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Projeto;
+import nst.controlenst.persistence.dao.GenericJDBCDAO;
+import nst.controlenst.persistence.dao.connection.ConnectionJDBC;
 import nst.controlenst.persistence.dao.factory.interfaces.ProjetoDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
 
@@ -36,24 +38,24 @@ public class ProjetoBO implements IBusiness {
     public void save(Object objeto) throws BusinessExceptions {
         this.projeto = (Projeto) objeto;
 
+        
+            if (this.projetoDao.isExiste(projeto) && projeto.getId()==0) {
+                throw new BusinessExceptions("O Nome ou Identificador do projeto já existem no banco de dados.");
+            } else {
+                if ("".equalsIgnoreCase(this.projeto.getIdentificador()) || this.projeto.getIdentificador() == null) {
+                    throw new BusinessExceptions("O campo Identificador não pode ser Nulo ou Vazio");
+                }
 
-        if (this.projetoDao.isExiste(projeto)) {
-            throw new BusinessExceptions("O Nome ou Identificador do projeto já existem no banco de dados.");
-        } else {
-            if ("".equalsIgnoreCase(this.projeto.getIdentificador()) || this.projeto.getIdentificador() == null) {
-                throw new BusinessExceptions("O campo Identificador não pode ser Nulo ou Vazio");
-            }
+                if (this.projeto.getIdentificador().length() > 10) {
+                    throw new BusinessExceptions("O campo Identificador não pode conter mais de 10 caracteres");
+                }
 
-            if (this.projeto.getIdentificador().length() > 10) {
-                throw new BusinessExceptions("O campo Identificador não pode conter mais de 10 caracteres");
-            }
-
-            if ("".equalsIgnoreCase(this.projeto.getNome()) || this.projeto.getNome() != null) {
-                if (this.projeto.getNome().length() > 75) {
-                    throw new BusinessExceptions("O campo Nome não pode conter mais de 75 caracteres");
+                if ("".equalsIgnoreCase(this.projeto.getNome()) || this.projeto.getNome() != null) {
+                    if (this.projeto.getNome().length() > 75) {
+                        throw new BusinessExceptions("O campo Nome não pode conter mais de 75 caracteres");
+                    }
                 }
             }
-        }
 
         if (this.projeto.getDataCadastro() == null) {
             throw new BusinessExceptions("O campo Data de Cadastro não pode ser Nulo ou Vazio");
@@ -84,6 +86,7 @@ public class ProjetoBO implements IBusiness {
         }
 
         this.projetoDao.save(projeto);
+        ConnectionJDBC.doCommit();
 
     }
 
@@ -106,5 +109,9 @@ public class ProjetoBO implements IBusiness {
     @Override
     public Object obter(Integer id) throws BusinessExceptions {
         return this.projetoDao.getByPrimaryKey(id);
+    }
+    
+    public Object obterPorIdentificador(String identificador) throws BusinessExceptions {
+        return this.projetoDao.getByIdentificador(identificador);
     }
 }

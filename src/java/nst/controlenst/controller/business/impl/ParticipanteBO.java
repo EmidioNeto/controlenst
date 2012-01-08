@@ -12,6 +12,7 @@ import nst.controlenst.controller.business.exception.BusinessExceptions;
 import nst.controlenst.enums.EnumDAO;
 import nst.controlenst.enums.EnumTypeFactory;
 import nst.controlenst.model.entity.Participante;
+import nst.controlenst.persistence.dao.connection.ConnectionJDBC;
 import nst.controlenst.persistence.dao.factory.interfaces.ParticipanteDAO;
 import nst.controlenst.persistence.dao.util.FabricaDAO;
 
@@ -49,6 +50,7 @@ public class ParticipanteBO implements IBusiness {
         }
 
         this.participanteDao.save(participante);
+        ConnectionJDBC.doCommit();
     }
 
     @Override
@@ -57,10 +59,9 @@ public class ParticipanteBO implements IBusiness {
 
         if (this.participante.getId() == null || this.participante.getId() == 0) {
             throw new BusinessExceptions("Não foi possível identificar o valor do índice no objeto.");
-        }
-        
+        }        
         this.participanteDao.delete(participante);
-        
+        ConnectionJDBC.doCommit();
     }
 
     @Override

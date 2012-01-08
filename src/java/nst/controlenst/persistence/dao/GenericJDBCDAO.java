@@ -27,8 +27,6 @@ public abstract class GenericJDBCDAO {
         for (int i = 0; i < params.length; i++) {
             ps.setObject(i + 1, params[i]);
         }
-
-        System.out.println("----------/----------/----------/----------/----------/----------"+ps.toString()+"----------/----------/----------/----------/----------/----------");
         return ps.executeQuery();
     }
 
@@ -40,8 +38,8 @@ public abstract class GenericJDBCDAO {
         }
         
         int result = ps.executeUpdate();
-        
-        ps.close();
+        System.out.println("----------/----------/----------/----------/----------/----------"+ps.toString()+"----------/----------/----------/----------/----------/----------");
+        ps.close();        
         return result;
 
     }

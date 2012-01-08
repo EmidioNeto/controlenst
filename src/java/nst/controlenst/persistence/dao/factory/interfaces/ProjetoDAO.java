@@ -15,6 +15,7 @@ public interface ProjetoDAO {
     public void delete(Projeto projeto);
     public List getAll();
     public Projeto getByPrimaryKey(Integer id);
+    public Projeto getByIdentificador(String identificador);
     public void save(Projeto projeto);
     public boolean isExiste(Projeto projeto);
 }

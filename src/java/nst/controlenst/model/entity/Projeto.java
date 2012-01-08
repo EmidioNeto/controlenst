@@ -5,13 +5,13 @@
 package nst.controlenst.model.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  *
  * @author pablosouza
  */
 public class Projeto {
+
     private Integer id;
     private String nome;
     private String identificador;
@@ -22,10 +22,19 @@ public class Projeto {
     private String descricao;
     private Situacao situacao;
     private Tipo tipo;
+    private Coordenador coordenador;
+
+    public Coordenador getCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(Coordenador coordenador) {
+        this.coordenador = coordenador;
+    }
 
     public Projeto() {
     }
-    
+
     public Projeto(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
@@ -138,7 +147,7 @@ public class Projeto {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.getDescricao();
-    }   
+    }
 }

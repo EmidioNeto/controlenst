@@ -11,23 +11,20 @@
         <ui:composition template="../template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="form">  
+                <h:form id="form" prependId="false">  
   
                     <p:growl id="msgs" />  
 
                     <p:panel header="Listar Participantes">  
                         <h:panelGrid columns="4" id="grid">  
-
-                            <p:commandButton value="Novo Participante" ajax="false" action="novo_participante" />
-
-                                <p:commandButton value="Editar" action="editar_participante" />
+                            <p:commandButton value="Novo Participante" ajax="false" action="#{ParticipanteBean.initCadastro}" />
                         </h:panelGrid>  
                     </p:panel>  
 
                     <p:ajaxStatus style="width:16px;height:16px;">  
                         
                         <f:facet name="start">  
-                            <h:graphicImage value="/resources/imagens/ajaxloading.gif" />  
+                            <h:graphicImage value="../design/ajaxloading.gif" />  
                         </f:facet>  
 
                         <f:facet name="complete">  
@@ -35,8 +32,8 @@
                         </f:facet>  
                     </p:ajaxStatus>  
 
-                    <p:outputPanel id="projetos">  
-                        <p:dataTable value="#{ParticipanteBean.listaPaticipantes}" var="participante" emptyMessage="Não há Participantes cadastrados." paginator="true" rows="10"
+                    <p:outputPanel id="participantes">  
+                        <p:dataTable value="#{ParticipanteBean.listaPaticipantes}" id="table_participantes" var="participante" emptyMessage="Não há Participantes cadastrados." paginator="true" rows="7"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="5,10,15">  
 
@@ -72,7 +69,7 @@
                                 <f:facet name="header">  
                                     <h:outputText value="Excluir" />  
                                 </f:facet>
-                                <p:commandButton action="#{ParticipanteBean.deletar(participante.id)}" ajax="false" value="Excluir"/>
+                                <p:commandButton action="#{ParticipanteBean.deletar(participante.id)}" update="participantes,table_participantes" value="Excluir"/>
                             </p:column>    
                         </p:dataTable>  
                     </p:outputPanel>  

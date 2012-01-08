@@ -33,7 +33,7 @@
                     </p:ajaxStatus>  
 
                     <p:outputPanel id="projetos">  
-                        <p:dataTable value="#{ProjetoBean.listaProjetos}" var="projeto" emptyMessage="Não há Projetos cadastrados." paginator="true" rows="10"
+                        <p:dataTable value="#{ProjetoBean.listaProjetos}" id="table_projetos" var="projeto" emptyMessage="Não há Projetos cadastrados." paginator="true" rows="6"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="5,10,15">  
 
@@ -69,46 +69,51 @@
                                 <f:facet name="header">  
                                     <h:outputText value="Data Inicio" />  
                                 </f:facet>  
-                                <h:outputText value="#{projeto.dataInicio}" />  
+                                <h:outputText value="#{projeto.dataInicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
                             </p:column>
                             
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Data Prev Fim" />  
                                 </f:facet>  
-                                <h:outputText value="#{projeto.dataEncerramentoPrevisto}" />  
+                                <h:outputText value="#{projeto.dataEncerramentoPrevisto}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
                             </p:column>
                             
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Data Fim" />  
                                 </f:facet>  
-                                <h:outputText value="#{projeto.dataEncerramento}" />  
+                                <h:outputText value="#{projeto.dataEncerramento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>  
                             </p:column>
                             
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Coordenador" />  
                                 </f:facet>  
-
+                                <h:outputText value="#{projeto.coordenador}" /> 
                             </p:column>
 
                             <p:column>
                                 <f:facet name="header">  
                                     <h:outputText value="Editar" />  
                                 </f:facet>
-                                <p:commandButton action="#{ProjetoBean.editar(projeto.id)}" ajax="false" value="Editar"/>
+                                <p:commandButton action="#{ProjetoBean.editar(projeto)}" ajax="false" value="Editar"/>
                             </p:column> 
                             
                             <p:column>
                                 <f:facet name="header">  
                                     <h:outputText value="Excluir" />  
                                 </f:facet>
-                                <p:commandButton action="#{ProjetoBean.deletar(projeto.id)}" ajax="false" value="Excluir"/>
+                                <p:commandButton action="#{ProjetoBean.deletar(projeto)}" ajax="true" value="Excluir" update="projetos,table_projetos"/>
                             </p:column>    
                         </p:dataTable>  
-                    </p:outputPanel>     
-
+                    </p:outputPanel> 
                 </h:form>  
             </ui:define>
 

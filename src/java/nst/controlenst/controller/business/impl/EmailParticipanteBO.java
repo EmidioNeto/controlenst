@@ -46,7 +46,6 @@ public class EmailParticipanteBO implements IBusiness{
             ConnectionJDBC.doRollback();
             throw new BusinessExceptions("O campo Descrição não pode ser Nulo ou Vazio");
         }
-        FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_INFO, "", "Cadastro realizado com sucesso!");
         this.emailParticipanteDAO.save(emailParticipante);
         ConnectionJDBC.doCommit();
     }

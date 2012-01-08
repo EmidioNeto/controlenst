@@ -10,7 +10,7 @@
         <ui:composition template="../template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="form" prependId="false">  
+                <h:form id="form">  
   
                     <p:growl id="msgs" />  
 
@@ -37,36 +37,28 @@
                                 <f:selectItems value="#{ParticipanteBean.listaCurso}"/>
                             </h:selectOneMenu>
                             
-                            <h:outputLabel value="Cargo*" />
+                            <h:outputLabel value="Cargo" />
                             <h:selectOneMenu id="selectCargo" value="#{ParticipanteBean.id_cargo}" required="true" requiredMessage="Cargo é um campo requerido!">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItems value="#{ParticipanteBean.listaCargos}" />
                             </h:selectOneMenu>
 
-                            <h:outputLabel value="Vinculo com o Núcleo*" />   
-                            <h:selectOneMenu id="selectVinculo" value="#{ParticipanteBean.id_vinculo}" required="true" requiredMessage="Vinculo é um campo requerido!">
+                            <h:outputLabel value="Vinculo com o Núcleo" />   
+                            <h:selectOneMenu id="selectVinculo" value="#{ParticipanteBean.id_vinculo}">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItems value="#{ParticipanteBean.listaVinculos}" />
                             </h:selectOneMenu>
                             
-                            <h:outputLabel value="Semestre*" />   
-                            <h:selectOneMenu id="selectSemestre" value="#{ParticipanteBean.semestre}" required="true" requiredMessage="Semestre é um campo requerido!">
+                            <h:outputLabel value="Semestre" />   
+                            <h:selectOneMenu id="selectSemestre" value="#{ParticipanteBean.semestre}">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItem itemValue="1" itemLabel="1º Semestre" />
                                 <f:selectItem itemValue="2" itemLabel="2º Semestre" />
-                                <f:selectItem itemValue="3" itemLabel="3º Semestre" />
-                                <f:selectItem itemValue="4" itemLabel="4º Semestre" />
-                                <f:selectItem itemValue="5" itemLabel="5º Semestre" />
-                                <f:selectItem itemValue="6" itemLabel="6º Semestre" />
-                                <f:selectItem itemValue="7" itemLabel="7º Semestre" />
-                                <f:selectItem itemValue="8" itemLabel="8º Semestre" />
-                                <f:selectItem itemValue="9" itemLabel="9º Semestre" />
-                                <f:selectItem itemValue="10" itemLabel="10º Semestre" />
                             </h:selectOneMenu>
                             
                             
-                            <h:outputLabel value="Tipo de Ingresso*" />   
-                            <h:selectOneMenu id="selectTipoIngresso" value="#{ParticipanteBean.id_tipo_ingresso}" required="true" requiredMessage="Tipo de Ingresso é um campo requerido!">
+                            <h:outputLabel value="Tipo de Ingresso" />   
+                            <h:selectOneMenu id="selectTipoIngresso" value="#{ParticipanteBean.id_tipo_ingresso}">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItems value="#{ParticipanteBean.listaTipoIngresso}" />
                             </h:selectOneMenu>
@@ -74,103 +66,169 @@
                             <h:outputLabel value="     " />   
                             <h:outputLabel value="     " />
                             
-                            <h:outputLabel value="Data Início*" />                               
-                            <p:calendar value="#{ParticipanteBean.data_entrada}" showOn="button" required="true" requiredMessage="Data Início é um campo requerido!"/>
+                            <h:outputLabel value="Data Início" />                               
+                            <p:calendar value="#{ParticipanteBean.data_entrada}" showOn="button" />
                             
                             
                             <h:outputLabel value="Data Saída" />   
-                            <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button"/>
+                            <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button" />
                             
-                            <h:outputLabel value="Projeto*" />                               
-                            <h:selectOneMenu id="selectProjeto" value="#{ParticipanteBean.id_projeto}" required="true" requiredMessage="Projeto é um campo requerido!">
+                            <h:outputLabel value="Projeto" />                               
+                            <h:selectOneMenu id="selectProjeto" value="#{ParticipanteBean.id_projeto}">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItems value="#{ParticipanteBean.listaProjeto}" />
-                            </h:selectOneMenu>
-                            
-                            
-                            <h:outputLabel value="Motivo de Saída" />   
-                            <h:selectOneMenu id="selectMotivo" value="#{ParticipanteBean.id_motivo_saida}">
-                                <f:selectItem itemValue="" itemLabel="Selecione..." />
-                                <f:selectItems value="#{ParticipanteBean.listaMotivoSaida}" />
-                            </h:selectOneMenu>                          
+                            </h:selectOneMenu>                        
                             
                             </h:panelGrid>  
                             
-                        <p:commandButton immediate="false" value="Editar Participante" ajax="false" action="#{ParticipanteBean.inserirParticipante()}" />
 
-                        
+                        <p:commandButton immediate="false" value="Editar Participante" ajax="false" action="#{ParticipanteBean.inserirParticipante()}" />
                     </p:panel>  
+                    </h:form>
+                <h:form id="historicos" prependId="false">
                     <p:outputPanel>  
                         <p:dataTable id="projetos" emptyMessage="Não há histórico para este participante!" value="#{ParticipanteBean.listaHistoricoPaticipante}" var="historico">  
 
+                        <p:commandButton immediate="false" value="Incluir Participante" ajax="false" action="#{ParticipanteBean.inserirParticipante()}" />
+
                             <p:column>  
                                 <f:facet name="header">  
-                                    <h:outputText value="Curso" />  
+                                    <h:outputText value="Curso" />                                     
                                 </f:facet>  
                                 <h:outputText value="#{historico.curso.descricao}" />
                             </p:column>  
-
+                        
                             <p:column >  
                                 <f:facet name="header" >  
                                     <h:outputText value="Semestre" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.semestre}" />
+                                <h:outputText value="#{historico.semestre}º Semestre" />
                             </p:column>  
 
                             <p:column>  
                                 <f:facet name="header">  
-                                    <h:outputText value="Tipo Adimissão" />  
+                                    <h:outputText value="Tipo Admissão" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.tipoIngresso.descricao}" />
+                                <h:outputText value="#{historico.tipoIngresso}" />
                             </p:column>
                             
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Vinculo" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.vinculo.descricao}" />
+                                <h:outputText value="#{historico.vinculo}" />
                             </p:column>
-                            
-                            <p:column>  
-                                <f:facet name="header">  
-                                    <h:outputText value="Situação" />  
-                                </f:facet>  
-                                <h:outputText value="#{historico.cargo.descricao}" />
-                            </p:column>
-                            
+                                                        
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Projeto" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.projeto.descricao}" />
+                                <h:outputText value="#{historico.projeto}" />
                             </p:column>
-                            
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Cargo" />  
+                                </f:facet>  
+                                <h:outputText value="#{historico.cargo}" />
+                            </p:column>
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Data Inicio" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.entrada}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
-                                </h:outputText>
+                                <h:outputText value="#{historico.entrada}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>                                
                             </p:column>
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Data Fim" />  
                                 </f:facet>  
-                                <h:outputText value="#{historico.saida}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                <h:outputText value="#{historico.saida}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
                             <p:column>  
                                 <f:facet name="header">  
                                     <h:outputText value="Motivo Saída" />  
-                                </f:facet>  
-                                <h:outputText value="#{historico.motivoSaida.descricao}" />
-                            </p:column>
+                                </f:facet>
+                                <h:outputText value="#{historico.motivoSaida}" />
+                            </p:column>                            
+                            <p:column>
+                                <f:facet name="header">  
+                                    <h:outputText value="Editar" />  
+                                </f:facet>
+                                <p:commandButton value="Editar" actionListener="#{ParticipanteBean.editarHistorico(historico.id)}" ajax="true" onclick="dlg2.show();" type="button"/>  
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">  
+                                    <h:outputText value="Excluir" />  
+                                </f:facet>
+                                <p:commandButton action="#{ParticipanteBean.deletarHistorico(historico.id)}" ajax="true" update="historicos,projetos,msgs" value="Excluir"/>
+                            </p:column> 
 
                         </p:dataTable>  
                     </p:outputPanel>
-                </h:form>
+                    
+                    <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="310" width="730">
+                        <p:panel header="Editar Histórico">  
+                        <h:panelGrid columns="4" id="grid">
+                            
+                            <h:outputLabel value="Curso*" />                           
+                            <h:selectOneMenu id="selectCurso" value="#{ParticipanteBean.id_curso}" required="true" requiredMessage="Curso é um campo requerido!">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaCurso}"/>
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="Cargo" />
+                            <h:selectOneMenu id="selectCargo" value="#{ParticipanteBean.id_cargo}" required="true" requiredMessage="Cargo é um campo requerido!">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaCargos}" />
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Vinculo com o Núcleo" />   
+                            <h:selectOneMenu id="selectVinculo" value="#{ParticipanteBean.id_vinculo}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaVinculos}" />
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="Semestre" />   
+                            <h:selectOneMenu id="selectSemestre" value="#{ParticipanteBean.semestre}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItem itemValue="1" itemLabel="1º Semestre" />
+                                <f:selectItem itemValue="2" itemLabel="2º Semestre" />
+                            </h:selectOneMenu>
+                            
+                            
+                            <h:outputLabel value="Tipo de Ingresso" />   
+                            <h:selectOneMenu id="selectTipoIngresso" value="#{ParticipanteBean.id_tipo_ingresso}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaTipoIngresso}" />
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="     " />   
+                            <h:outputLabel value="     " />
+                            
+                            <h:outputLabel value="Data Início" />                               
+                            <p:calendar value="#{ParticipanteBean.data_entrada}" showOn="button" />
+                            
+                            
+                            <h:outputLabel value="Data Saída" />   
+                            <p:calendar value="#{ParticipanteBean.data_saida}" showOn="button" />
+                            
+                            <h:outputLabel value="Projeto" />                               
+                            <h:selectOneMenu id="selectProjeto" value="#{ParticipanteBean.id_projeto}">
+                                <f:selectItem itemValue="" itemLabel="Selecione..." />
+                                <f:selectItems value="#{ParticipanteBean.listaProjeto}" />
+                            </h:selectOneMenu>                        
+                            
+                            </h:panelGrid>  
+                            
+
+                        <p:commandButton immediate="false" value="Editar Histórico" ajax="false" action="#{ParticipanteBean.SalvarHistorico()}" />
+                    </p:panel> 	
+                    </p:dialog>
+
+                    </h:form>
             </ui:define>
 
         </ui:composition>

@@ -47,7 +47,6 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
             + " fk_cur_id = ?,"
             + "fk_vinc_id = ?,"
             + "fk_part_id = ?,"
-            + "fk_sit_id,"
             + "histp_semestre,"
             + "fk_ing_id = ?,"
             + "fk_proj_id = ?"
@@ -154,7 +153,6 @@ public class JDBCHistoricoParticipantes extends GenericJDBCDAO implements HIstor
                             historico.getCurso().getId(),
                             historico.getVinculo().getId(),
                             historico.getParticipante().getId(),
-                            historico.getSituacao().getId(),
                             historico.getSemestre(),
                             historico.getTipoIngresso().getId(),
                             historico.getProjeto().getId(),

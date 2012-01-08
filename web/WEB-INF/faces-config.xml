@@ -10,42 +10,7 @@
     <converter>
         <converter-id>cursoConverter</converter-id>  
         <converter-class>nst.controlenst.converter.CursoConverter</converter-class>  
-    </converter>
-    
-    <converter>
-        <converter-id>motivoSaidaConverter</converter-id>  
-        <converter-class>nst.controlenst.converter.MotivoSaidaConverter</converter-class>  
-    </converter>
-    
-    <converter>
-        <converter-id>projetoConverter</converter-id>  
-        <converter-class>nst.controlenst.converter.ProjetoConverter</converter-class>  
-    </converter>
-    
-    <converter>
-        <converter-id>situacaoConverter</converter-id>  
-        <converter-class>nst.controlenst.converter.SituacaoConverter</converter-class>  
-    </converter>
-    
-    <converter>
-        <converter-id>tipoIngressoConverter</converter-id>  
-        <converter-class>nst.controlenst.converter.TipoIngressoConverter</converter-class>  
-    </converter>
-    
-    <converter>
-        <converter-id>vinculoConverter</converter-id>  
-        <converter-class>nst.controlenst.converter.VinculoConverter</converter-class>  
-    </converter>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    </converter> 
     
     <managed-bean>
         <managed-bean-name>ParticipanteBean</managed-bean-name>
@@ -63,6 +28,7 @@
         <navigation-case>
             <from-outcome>logado</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
+            
         </navigation-case>
     </navigation-rule>
     
@@ -70,6 +36,7 @@
         <navigation-case>
             <from-outcome>list_projetos</from-outcome>
             <to-view-id>/restrito/listProjetos.xhtml</to-view-id>
+            
         </navigation-case>
     </navigation-rule>
     
@@ -77,13 +44,14 @@
         <navigation-case>
             <from-outcome>list_paticipantes</from-outcome>
             <to-view-id>/restrito/listParticipantes.xhtml</to-view-id>
+                 
         </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
         <navigation-case>
             <from-outcome>novo_participante</from-outcome>
-            <to-view-id>/restrito/newParticipante.xhtml</to-view-id>
+            <to-view-id>/restrito/newParticipante.xhtml</to-view-id>                 
         </navigation-case>
     </navigation-rule>
     
@@ -91,6 +59,7 @@
         <navigation-case>
             <from-outcome>newar_participante</from-outcome>
             <to-view-id>/restrito/newParticipante.xhtml</to-view-id>
+                 
         </navigation-case>
     </navigation-rule>
     
@@ -98,6 +67,7 @@
         <navigation-case>
             <from-outcome>home</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
+                 
         </navigation-case>
     </navigation-rule>
     
@@ -105,12 +75,14 @@
         <navigation-case>
             <from-outcome>tela_relatorios</from-outcome>
             <to-view-id>/restrito/relatorios.xhtml</to-view-id>
+                 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>novo_projeto</from-outcome>
             <to-view-id>/restrito/newProjeto.xhtml</to-view-id>
+                 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -139,7 +111,36 @@
         <from-view-id>/restrito/listParticipantes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>editar_participante</from-outcome>
-            <to-view-id>/restrito/editParticipante.xhtml</to-view-id>
+            <to-view-id>/restrito/editParticipante.xhtml</to-view-id>                 
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/restrito/newProjeto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadastroSucesso</from-outcome>
+            <to-view-id>/restrito/listProjetos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadastroErro</from-outcome>
+            <to-view-id>/restrito/newProjeto.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/restrito/listProjetos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editar_projeto</from-outcome>
+            <to-view-id>/restrito/editProjeto.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/restrito/editProjeto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadastroSucesso</from-outcome>
+            <to-view-id>/restrito/listProjetos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadastroErro</from-outcome>
+            <to-view-id>/restrito/editProjeto.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

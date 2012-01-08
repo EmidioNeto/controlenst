@@ -15,7 +15,6 @@ public class HistoricoParticipante {
     
     private Integer id;
     private Participante participante;    
-    private Situacao situacao;    
     private Curso curso;
     private Integer semestre;
     private TipoIngresso tipoIngresso;
@@ -107,14 +106,6 @@ public class HistoricoParticipante {
 
     public void setVinculo(Vinculo vinculo) {
         this.vinculo = vinculo;
-    }
-
-    public Situacao getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(Situacao situacao) {
-        this.situacao = situacao;
     }
 
     public Integer getSemestre() {

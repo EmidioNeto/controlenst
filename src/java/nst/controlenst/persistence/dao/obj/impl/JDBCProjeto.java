@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nst.controlenst.model.entity.Projeto;
 import nst.controlenst.persistence.dao.GenericJDBCDAO;
+import nst.controlenst.persistence.dao.connection.ConnectionJDBC;
 import nst.controlenst.persistence.dao.factory.interfaces.ProjetoDAO;
 
 /**
@@ -29,7 +30,8 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
             + "proj_descricao,"
             + "fk_sit_id,"
             + "fk_tip_id,"
-            + "proj_nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "fk_coord_id,"
+            + "proj_nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPD_PROJETOS = "UPDATE projetos SET proj_identificador = ?,"
             + "proj_data_cadastro = ?,"
             + "proj_data_inicio = ?,"
@@ -38,13 +40,15 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
             + "proj_descricao = ?,"
             + "fk_sit_id = ?,"
             + "fk_tip_id = ?,"
+            + "fk_coord_id = ?,"
             + "proj_nome = ?"
             + " WHERE proj_id = ?";
     private static final String SQL_DEL_PROJETOS = "DELETE FROM projetos WHERE proj_id = ?";
     private static final String SQL_SEL_BYID = "SELECT * FROM projetos WHERE proj_id= ?";
     private static final String SQL_SEL_ALL = "SELECT * FROM projetos";
     private static final String SQL_SEL_BY_NOME_IDENTIFICADOR = "SELECT * FROM projetos WHERE proj_identificador = ? OR proj_nome = ?";
-
+    private static final String SQL_SEL_BY_IDENTIFICADOR = "SELECT * FROM projetos WHERE proj_identificador = ?";
+    
     private JDBCProjeto() {
     }
 
@@ -60,7 +64,9 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
     public void delete(Projeto projeto) {
         try {
             executarComando(SQL_DEL_PROJETOS, projeto.getId());
+            ConnectionJDBC.doCommit();
         } catch (SQLException ex) {
+            ConnectionJDBC.doRollback();
             Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -96,6 +102,21 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
         }
         return projeto;
     }
+    
+    
+    @Override
+    public Projeto getByIdentificador(String identificador) {
+        Projeto projeto = null;
+        try {
+            ResultSet rs = executarQuery(SQL_SEL_BY_IDENTIFICADOR, identificador);
+            if (rs.next()) {
+                projeto = (Projeto) preencherEntidade(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return projeto;
+    }
 
     @Override
     public void save(Projeto projeto) {
@@ -109,11 +130,12 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
                         projeto.getDescricao(),
                         projeto.getSituacao().getId(),
                         projeto.getTipo().getId(),
+                        projeto.getCoordenador().getId(),
                         projeto.getNome());
             } catch (SQLException ex) {
+                ConnectionJDBC.doRollback();
                 Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
             try {
                 executarComando(SQL_UPD_PROJETOS,
@@ -125,19 +147,25 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
                         projeto.getDescricao(),
                         projeto.getSituacao().getId(),
                         projeto.getTipo().getId(),
+                        projeto.getCoordenador().getId(),
                         projeto.getNome(),
                         projeto.getId());
             } catch (SQLException ex) {
+                ConnectionJDBC.doRollback();
                 Logger.getLogger(JDBCProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        ConnectionJDBC.doCommit();
     }
 
+    @Override
     public boolean isExiste(Projeto projeto) {
         try {
 
             ResultSet rs = executarQuery(SQL_SEL_BY_NOME_IDENTIFICADOR, projeto.getIdentificador(), projeto.getNome());
             if (rs.next()) {
+                System.out.println(rs.getString("proj_nome"));
+                
                 return true;
             }
         } catch (SQLException ex) {
@@ -157,6 +185,7 @@ public class JDBCProjeto extends GenericJDBCDAO implements ProjetoDAO {
         projeto.setDescricao(rs.getString("proj_descricao"));
         projeto.setIdentificador(rs.getString("proj_identificador"));
         projeto.setNome(rs.getString("proj_nome"));
+        projeto.setCoordenador(JDBCCoordenador.getInstance().getByPrimaryKey(rs.getInt("fk_coord_id")));
         projeto.setSituacao(JDBCSituacao.getInstance().getByPrimaryKey(rs.getInt("fk_sit_id")));
         projeto.setTipo(JDBCTipo.getInstance().getByPrimaryKey(rs.getInt("fk_tip_id")));
         return projeto;
