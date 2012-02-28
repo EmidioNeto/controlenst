@@ -129,55 +129,47 @@ public class ProjetoBEAN implements Serializable {
                     Tipo t = (Tipo) tipo;
                     this.listaTipo.add(new SelectItem(t.getId() , t.getDescricao()));                
                 }                
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             List<Object> listStatus;
-            try {
+            
                 listStatus = situacaoBO.listar();                
                 for(Object status : listStatus){
                     Situacao s = (Situacao) status;
                     this.listaStatus.add(new SelectItem(s.getId() , s.getDescricao()));                
                 }                
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             List<Object> listCoordenador;
-            try {
+            
                 listCoordenador = coordenadorBO.listar();                
                 for(Object coordenador : listCoordenador){
                     Coordenador c = (Coordenador) coordenador;
                     this.listaCoordenador.add(new SelectItem(c.getId() , c.getNome()));                
                 }                
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             
             List<Object> listParticipante;
-            try {
+            
                 listParticipante = participanteBO.listar();                
                 for(Object participante : listParticipante){
                     Participante p = (Participante) participante;
                     this.listaParticipante.add(new SelectItem(p.getId() , p.getNome()));                
                 }                
-            } catch (BusinessExceptions ex) {
-                Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             List<Object> listCargo;
-            try {
+            
                 listCargo = cargoBO.listar();                
                 for(Object cargo : listCargo){
                     Cargo c = (Cargo) cargo;
                     this.listaCargo.add(new SelectItem(c.getId() , c.getDescricao()));                
                 }                
+            
             } catch (BusinessExceptions ex) {
                 Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             
             
     }
@@ -458,7 +450,7 @@ public class ProjetoBEAN implements Serializable {
             this.data_encer_previsto = new Date(this.projeto.getDataEncerramentoPrevisto().getTime());
         if(this.projeto.getDataEncerramento() != null)
             this.data_encerramento = new Date(this.projeto.getDataEncerramento().getTime());
-        return "editar_projeto";
+        return "editProjeto.xhtml";
         
     }
 
@@ -487,11 +479,11 @@ public class ProjetoBEAN implements Serializable {
             Participante p = (Participante)this.participanteBO.obter(this.id_participante);
             
             listaParticipanteProjeto.add(p);
-            return "cadastroSucesso";
+            return "listProjetos.xhtml";
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ProjetoBEAN.class.getName()).log(Level.SEVERE, null, ex);
             FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "", ex.getMessage());
-            return "cadastroErro";
+            return "editProjeto.xhtml";
         }
     }
 
@@ -517,11 +509,11 @@ public class ProjetoBEAN implements Serializable {
             this.projeto = (Projeto) this.projetoBO.obterPorIdentificador(projeto.getIdentificador());
             
             this.resetarValores();
-            return "cadastroSucesso";
+            return "listProjetos.xhtml";
         } catch (BusinessExceptions ex) {
             Logger.getLogger(ParticipanteBEAN.class.getName()).log(Level.SEVERE, null, ex);
             FacesUtil.adicionarMenssagem(FacesMessage.SEVERITY_WARN, "", ex.getMessage());
-            return "cadastroErro";
+            return "newProjeto.xhtml";
         }
         
     }

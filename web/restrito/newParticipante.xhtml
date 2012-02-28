@@ -67,15 +67,9 @@
                             <h:outputLabel value="     " />
                             
                             <h:outputLabel value="Data Início*" />                               
-                            <p:calendar pattern="dd/mm/yyyy" value="#{ParticipanteBean.data_entrada}" showOn="button" required="true" requiredMessage="Data Início de Ingresso é um campo requerido!"/>
+                            <p:calendar pattern="dd/mm/yyyy" value="#{ParticipanteBean.data_entrada}" showOn="button" required="true" requiredMessage="Data Início de Ingresso é um campo requerido!"/>                         
                             
-                            <h:outputLabel value="Data Início" />                               
-                            <p:calendar value="#{ParticipanteBean.data_entrada}" showOn="button" />                            
-                            
-                            <h:outputLabel value="Data Saída" />   
-                            <p:calendar pattern="dd/mm/yyyy" value="#{ParticipanteBean.data_saida}" showOn="button" />
-                            
-                            <h:outputLabel value="Projeto" />                               
+                            <h:outputLabel value="Projeto*" />                               
                             <h:selectOneMenu id="selectProjeto" value="#{ParticipanteBean.id_projeto}">
                                 <f:selectItem itemValue="" itemLabel="Selecione..." />
                                 <f:selectItems value="#{ParticipanteBean.listaProjeto}" />

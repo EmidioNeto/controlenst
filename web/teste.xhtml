@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./template.xhtml"
+                template="./template/template.xhtml"
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:h="http://java.sun.com/jsf/html">
 
@@ -53,7 +53,7 @@
                 </p:submenu>
                 <p:menuitem value="Logout" url="http://www.primefaces.org" icon="ui-icon ui-icon-close" style="float: right;"/>
             </p:menubar>
-            </h:form>
+        </h:form>
     </ui:define>
 
     <ui:define name="left">
@@ -64,19 +64,16 @@
     </ui:define>
 
     <ui:define name="content">
-                    Bem vindo ao Controle de Projetos do NST!
- 
-                    Gerencie seus projetos passo a passo,
-                    Visualize o historico de projetos realizados,
-                    Visualize o historico de Participantes,
-                    Verifique os erros que já ocorreram e suas soluções
+        <h:form>
+            <h:commandButton value="Gerar Relatório Participantes" action="#{ParticipantesReport.print()}" />
+        </h:form>
     </ui:define>
 
     <ui:define name="bottom">
         <p:layoutUnit position="bottom" height="150" resizable="false" >  
-                    <h:outputText style="text-align: center !important;" value="Núcleo de serviços Tecnológicos Av. Luis Viana, n. 6775, Paralela Salvador BA,
-                                  CEP:41.745-130 Telefone: 3206-3110 © Copyright 2001/2007 - Núcleo de Serviços Tecnológicos
-                                  Todos os direitos reservados - All rights reserved." />  
+            <h:outputText style="text-align: center !important;" value="Núcleo de serviços Tecnológicos Av. Luis Viana, n. 6775, Paralela Salvador BA,
+                          CEP:41.745-130 Telefone: 3206-3110 © Copyright 2001/2007 - Núcleo de Serviços Tecnológicos
+                          Todos os direitos reservados - All rights reserved." />  
         </p:layoutUnit>
     </ui:define>
 
